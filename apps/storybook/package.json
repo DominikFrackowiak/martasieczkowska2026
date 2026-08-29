@@ -1,0 +1,19 @@
+{
+	"name": "storybook",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"storybook": "storybook dev",
+		"build-storybook": "storybook build"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"packageManager": "pnpm@10.19.0",
+	"devDependencies": {
+		"@storybook-astro/framework": "^1.11.0",
+		"@storybook/builder-vite": "^10.5.10",
+		"storybook": "^10.5.10"
+	}
+}
