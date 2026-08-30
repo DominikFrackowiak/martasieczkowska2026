@@ -15,5 +15,9 @@
 		"@storybook-astro/framework": "^1.11.0",
 		"@storybook/builder-vite": "^10.5.10",
 		"storybook": "^10.5.10"
+	},
+	"dependencies": {
+		"@tailwindcss/vite": "^4.3.3",
+		"tailwindcss": "^4.3.3"
 	}
 }
