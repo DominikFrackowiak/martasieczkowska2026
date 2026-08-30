@@ -1,3 +1,7 @@
+/// <reference path="./css.d.ts" />
+
+import "../../front/src/styles/global.css";
+
 const preview = {
  parameters: {
   controls: {
