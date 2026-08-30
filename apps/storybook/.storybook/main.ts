@@ -1,10 +1,22 @@
-export default {
+import type { StorybookConfig } from '@storybook-astro/framework';
+import tailwindcss from '@tailwindcss/vite';
+
+const config: StorybookConfig = {
  stories: [
-  '../../packages/ui/src/**/*.stories.@(js|jsx|ts|tsx)'
+  '../../front/src/**/*.stories.@(js|jsx|ts|tsx)',
  ],
 
  framework: {
   name: '@storybook-astro/framework',
   options: {},
  },
+
+ async viteFinal(config) {
+  config.plugins = config.plugins || [];
+  config.plugins.push(tailwindcss());
+
+  return config;
+ },
 };
+
+export default config;
