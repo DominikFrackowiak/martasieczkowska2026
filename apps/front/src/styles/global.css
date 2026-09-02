@@ -1,1 +1,38 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@source '../components';
+@source '../layouts';
+@source '../pages';
+
+@font-face {
+	font-family: 'Roboto';
+	src: url('../assets/fonts/Roboto-VariableFont_wdth\,wght.ttf')
+		format('truetype');
+	font-style: normal;
+	font-weight: 300 800;
+	font-stretch: 75% 100%;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Source Serif';
+	src: url('../assets/fonts/SourceSerif4-VariableFont_opsz\,wght.ttf')
+		format('truetype');
+	font-style: normal;
+	font-weight: 300 800;
+	font-stretch: 75% 100%;
+	font-display: swap;
+}
+
+@theme {
+	--font-sans: 'Roboto', ui-sans-serif, system-ui, sans-serif;
+	--font-serif: 'Source Serif';
+}
+
+body {
+	@apply font-serif;
+}
+
+.nav-element {
+	@apply font-sans;
+}
