@@ -1,0 +1,27 @@
+---
+import Text from '../../atoms/text/text.astro'
+import Heading from '../../atoms/heading/heading.astro'
+
+interface Props {
+	headingClassName?: string
+	headingLines: string[]
+	descriptionParagraphs: string[]
+	descriptionClassName?: string
+}
+
+const {
+	headingLines,
+
+	descriptionParagraphs,
+} = Astro.props
+---
+
+<div class='flex flex-col w-full gap-4'>
+	<Heading as='h1' variant='project'
+		>{headingLines.map(line => <span>{line}</span>)}</Heading
+	>
+
+	<div class='flex flex-col gap-2'>
+		{descriptionParagraphs.map(paragraph => <Text as='p'>{paragraph}</Text>)}
+	</div>
+</div>
