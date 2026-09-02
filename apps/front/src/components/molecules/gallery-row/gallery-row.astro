@@ -1,0 +1,15 @@
+---
+import { cn } from '../../../lib/cn'
+import ContentImage, { type ContentImageProps } from '../../atoms/content-image/content-image.astro'
+
+export interface GalleryRowProps {
+	className?: string
+	imageItems: ContentImageProps[]
+}
+
+const { className, imageItems } = Astro.props as GalleryRowProps
+---
+
+<div class={cn('flex w-full items-start gap-2', className)}>
+	{imageItems.map((image) => <ContentImage {...image} />)}
+</div>
