@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets'
+import { cn } from '../../../lib/cn'
+
+const variants = {
+	full: 'w-full',
+	grow: 'flex-1',
+	'1/2': 'w-1/2',
+	'1/3': 'w-1/3',
+	'2/3': 'w-2/3',
+	'1/4': 'w-1/4',
+	'3/4': 'w-3/4',
+	'1/5': 'w-1/5',
+	'2/5': 'w-2/5',
+	'3/5': 'w-3/5',
+	'4/5': 'w-4/5',
+} as const
+
+const alignments = {
+	start: 'self-start',
+	center: 'self-center',
+	end: 'self-end',
+} as const
+
+export type ContentImageVariant = keyof typeof variants
+export type ContentImageAlign = keyof typeof alignments
+
+export interface ContentImageProps {
+	alt: string
+	src: string
+	intrinsicWidth: number | `${number}`
+	intrinsicHeight: number | `${number}`
+	align?: ContentImageAlign
+	className?: string
+	variant?: ContentImageVariant
+}
+
+const { alt, src, intrinsicWidth, intrinsicHeight, align, className, variant = 'full' } = Astro.props as ContentImageProps
+---
+
+<Image
+	alt={alt}
+	class={cn('h-auto min-w-0 w-full', variants[variant], align && alignments[align], className)}
+	src={src}
+	width={intrinsicWidth}
+	height={intrinsicHeight}
+/>
