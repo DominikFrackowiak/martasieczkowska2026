@@ -1,0 +1,26 @@
+---
+import { cn } from '../../../lib/cn'
+
+const variants = {
+	regularText: 'text-base',
+	navItem: 'nav-element text-base',
+	caption: 'text-xs',
+} as const
+
+type TextVariant = keyof typeof variants
+
+interface Props {
+	className?: string
+	as: 'p' | 'span' | 'caption'
+	variant?: TextVariant
+	
+}
+
+const { as, className, variant = 'regularText' } = Astro.props as Props
+
+const ElementHTML = as
+---
+
+<ElementHTML class={cn('font-serif', variants[variant], className)}>
+	<slot />
+</ElementHTML>
