@@ -5,5 +5,11 @@
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
-	"packageManager": "pnpm@10.19.0"
+	"packageManager": "pnpm@10.19.0",
+	"scripts": {
+		"dev": "pnpm -r --parallel --stream --filter ./apps/* dev",
+		"dev:front": "pnpm --filter martasieczkowska-astro dev",
+		"dev:storybook": "pnpm --filter @martasieczkowska/storybook dev",
+		"dev:cms": "pnpm --filter @martasieczkowska/cms dev"
+	}
 }

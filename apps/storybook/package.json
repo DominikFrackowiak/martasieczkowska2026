@@ -1,10 +1,11 @@
 {
-	"name": "storybook",
+	"name": "@martasieczkowska/storybook",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"storybook": "storybook dev",
+		"dev": "storybook dev -p 6006",
+		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build"
 	},
 	"keywords": [],
