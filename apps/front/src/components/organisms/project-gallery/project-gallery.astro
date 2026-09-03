@@ -1,11 +1,15 @@
 ---
-interface Props{
+import { cn } from '../../../lib/cn'
+import GalleryRow, { type GalleryRowProps } from '../../molecules/gallery-row/gallery-row.astro'
 
+export interface ProjectGalleryProps {
+	className?: string
+	galleryRows: GalleryRowProps[]
 }
 
-const {} = Astro.props
+const { className, galleryRows } = Astro.props as ProjectGalleryProps
 ---
 
-<div>
-
+<div class={cn('flex w-full flex-col justify-start gap-2', className)}>
+	{galleryRows.map((row) => <GalleryRow {...row} />)}
 </div>
