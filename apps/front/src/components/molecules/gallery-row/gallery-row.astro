@@ -2,14 +2,34 @@
 import { cn } from '../../../lib/cn'
 import ContentImage, { type ContentImageProps } from '../../atoms/content-image/content-image.astro'
 
+const alignments = {
+	start: 'items-start',
+	center: 'items-center',
+	end: 'items-end',
+	stretch: 'items-stretch',
+} as const
+
+const justifications = {
+	start: 'justify-start',
+	center: 'justify-center',
+	end: 'justify-end',
+	between: 'justify-between',
+	around: 'justify-around',
+} as const
+
+export type GalleryRowAlign = keyof typeof alignments
+export type GalleryRowJustify = keyof typeof justifications
+
 export interface GalleryRowProps {
+	align?: GalleryRowAlign
 	className?: string
 	imageItems: ContentImageProps[]
+	justify?: GalleryRowJustify
 }
 
-const { className, imageItems } = Astro.props as GalleryRowProps
+const { align = 'start', className, imageItems, justify = 'start' } = Astro.props as GalleryRowProps
 ---
 
-<div class={cn('flex w-full items-start gap-2', className)}>
+<div class={cn('flex w-full gap-2', alignments[align], justifications[justify], className)}>
 	{imageItems.map((image) => <ContentImage {...image} />)}
 </div>

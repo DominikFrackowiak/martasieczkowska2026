@@ -15,6 +15,14 @@ const meta = {
 		layout: 'fullscreen',
 	},
 	argTypes: {
+		align: {
+			control: 'select',
+			options: ['start', 'center', 'end', 'stretch'],
+		},
+		justify: {
+			control: 'select',
+			options: ['start', 'center', 'end', 'between', 'around'],
+		},
 		className: {
 			control: 'text',
 		},
@@ -23,22 +31,21 @@ const meta = {
 		},
 	},
 	args: {
+		align: 'start',
+		justify: 'start',
 		className: 'min-h-screen bg-white p-8',
 		imageItems: [
 			{
 				...image,
 				variant: '1/2',
-				align: 'start',
 			},
 			{
 				...image,
 				variant: '1/3',
-				align: 'center',
 			},
 			{
 				...image,
 				variant: '1/5',
-				align: 'end',
 			},
 		],
 	},
@@ -63,23 +70,53 @@ export const EvenPair = {
 	},
 }
 
-export const MixedAlignment = {
+export const CenteredRow = {
 	args: {
+		justify: 'center',
 		imageItems: [
 			{
 				...image,
-				variant: '1/3',
-				align: 'start',
+				variant: '1/4',
+			},
+			{
+				...image,
+				variant: '1/4',
+			},
+		],
+	},
+}
+
+export const SpaceBetween = {
+	args: {
+		justify: 'between',
+		imageItems: [
+			{
+				...image,
+				variant: '1/5',
+			},
+			{
+				...image,
+				variant: '1/5',
+			},
+			{
+				...image,
+				variant: '1/5',
+			},
+		],
+	},
+}
+
+export const AlignedEnd = {
+	args: {
+		align: 'end',
+		imageItems: [
+			{
+				...image,
+				variant: '1/4',
 			},
 			{
 				...image,
 				variant: '1/3',
-				align: 'center',
-			},
-			{
-				...image,
-				variant: '1/3',
-				align: 'end',
 			},
 		],
 	},

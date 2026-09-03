@@ -16,31 +16,23 @@ const variants = {
 	'4/5': 'w-4/5',
 } as const
 
-const alignments = {
-	start: 'self-start',
-	center: 'self-center',
-	end: 'self-end',
-} as const
-
 export type ContentImageVariant = keyof typeof variants
-export type ContentImageAlign = keyof typeof alignments
 
 export interface ContentImageProps {
 	alt: string
 	src: string
 	intrinsicWidth: number | `${number}`
 	intrinsicHeight: number | `${number}`
-	align?: ContentImageAlign
 	className?: string
 	variant?: ContentImageVariant
 }
 
-const { alt, src, intrinsicWidth, intrinsicHeight, align, className, variant = 'full' } = Astro.props as ContentImageProps
+const { alt, src, intrinsicWidth, intrinsicHeight, className, variant = 'full' } = Astro.props as ContentImageProps
 ---
 
 <Image
 	alt={alt}
-	class={cn('h-auto min-w-0 w-full', variants[variant], align && alignments[align], className)}
+	class={cn('h-auto min-w-0 w-full', variants[variant], className)}
 	src={src}
 	width={intrinsicWidth}
 	height={intrinsicHeight}

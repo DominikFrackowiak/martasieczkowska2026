@@ -1,9 +1,9 @@
-import ContentImageStoryWrapper from './content-image-story-wrapper.astro'
+import ContentImage from './content-image.astro'
 import placeholder from './placeholder.png'
 
 const meta = {
 	title: 'Atoms/ContentImage',
-	component: ContentImageStoryWrapper,
+	component: ContentImage,
 	parameters: {
 		layout: 'fullscreen',
 	},
@@ -15,10 +15,6 @@ const meta = {
 			control: 'select',
 			options: ['full', 'grow', '1/2', '1/3', '2/3', '1/4', '3/4', '1/5', '2/5', '3/5', '4/5'],
 		},
-		align: {
-			control: 'select',
-			options: [undefined, 'start', 'center', 'end'],
-		},
 		className: {
 			control: 'text',
 		},
@@ -29,7 +25,6 @@ const meta = {
 		intrinsicWidth: placeholder.width,
 		intrinsicHeight: placeholder.height,
 		variant: 'full',
-		align: undefined,
 		className: '',
 	},
 }
@@ -50,23 +45,8 @@ export const TwoThirds = {
 	},
 }
 
-export const AlignStart = {
+export const Quarter = {
 	args: {
-		variant: '1/2',
-		align: 'start',
-	},
-}
-
-export const AlignCenter = {
-	args: {
-		variant: '1/2',
-		align: 'center',
-	},
-}
-
-export const AlignEnd = {
-	args: {
-		variant: '1/2',
-		align: 'end',
+		variant: '1/4',
 	},
 }
