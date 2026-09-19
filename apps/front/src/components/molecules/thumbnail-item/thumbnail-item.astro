@@ -1,0 +1,51 @@
+---
+import ContentImage, {
+	type ContentImageProps,
+} from '../../atoms/content-image/content-image.astro'
+import Heading from '../../atoms/heading/heading.astro'
+import Text from '../../atoms/text/text.astro'
+import { cn } from '../../../lib/cn'
+
+interface Props {
+	slug: string
+	image: ContentImageProps
+	titleLines: string[]
+	className?: string
+}
+
+const { className, image, slug, titleLines } = Astro.props
+
+const url = `/projects/${slug}`
+
+// lg:w-70.5 lg:h-58.25
+---
+
+<a
+	href={url}
+	class={cn(
+		'relative block overflow-hidden w-39 h-32.25 sm:w-61.5 sm:h-51.5 md:w-52.5 md:h-43.75 lg:w-70.5 lg:h-58.25  xl:w-87 xl:h-72.5 ',
+		className
+	)}
+>
+	<ContentImage
+		{...image}
+		className='absolute top-0 left-0 h-full w-full object-cover'
+	/>
+	<div
+		class='absolute top-0 left-0 h-full w-full bg-black opacity-0 hover:opacity-100 transition-opacity duration-300'
+	>
+		<Heading
+			as='h2'
+			variant='thumbnail'
+			className='flex flex-col justify-center items-start gap-0 h-full w-full px-4'
+		>
+			{
+				titleLines.map(line => (
+					<Text as='span' variant='thumbnail'>
+						{line}
+					</Text>
+				))
+			}
+		</Heading>
+	</div>
+</a>
