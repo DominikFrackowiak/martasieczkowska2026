@@ -27,6 +27,23 @@
 @theme {
 	--font-sans: 'Roboto', ui-sans-serif, system-ui, sans-serif;
 	--font-serif: 'Source Serif';
+	--breakpoint-sm: 576px;
+	--breakpoint-md: 768px;
+	--breakpoint-lg: 992px;
+	--breakpoint-xl: 1200px;
+	--breakpoint-2xl: 1400px;
+	--container-xs: 324px;
+	--container-sm: 517px;
+	--container-md: 668px;
+	--container-lg: 892px;
+	--container-xl: 1100px;
+	--text-base: 15px;
+	--text-2xl: 20px;
+	--spacing-gap-xs: 12px;
+	--spacing-gap-sm: 25px;
+	--spacing-gap-md: 19px;
+	--spacing-gap-lg: 23px;
+	--spacing-gap-xl: 28px;
 }
 
 body {
