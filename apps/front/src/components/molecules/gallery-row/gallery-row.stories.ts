@@ -1,5 +1,5 @@
 import GalleryRow from './gallery-row.astro'
-import placeholder from '../../atoms/content-image/placeholder.png'
+import placeholder from '../../atoms/content-image/goat.jpg'
 
 const image = {
 	alt: 'Abstract placeholder image',

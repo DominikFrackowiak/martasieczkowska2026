@@ -1,5 +1,5 @@
 import ContentImage from './content-image.astro'
-import placeholder from './placeholder.png'
+import placeholder from './goat.jpg'
 
 const meta = {
 	title: 'Atoms/ContentImage',
