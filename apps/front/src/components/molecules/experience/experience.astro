@@ -1,0 +1,29 @@
+---
+import Text from '../../atoms/text/text.astro'
+
+type TextLine = string | string[]
+
+interface Props {
+	textLines: TextLine[]
+}
+
+const { textLines } = Astro.props
+---
+
+<Text as='p' className='flex flex-col gap-0.5 w-64'>
+	{
+		textLines.map(line =>
+			typeof line === 'string' ? (
+				<Text as='span' className='block border'>
+					{line}
+				</Text>
+			) : (
+				<Text as='span' className='flex justify-between w-full'>
+					{line.map(part => (
+						<Text as='span'>{part}</Text>
+					))}
+				</Text>
+			)
+		)
+	}
+</Text>
