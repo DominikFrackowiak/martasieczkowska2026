@@ -1,0 +1,23 @@
+---
+import ThumbnailsGrid from './thumbnails-grid.astro'
+import { type ContentImageProps } from '../../atoms/content-image/content-image.astro'
+
+interface ThumbnailItem {
+	slug: string
+	image: ContentImageProps
+	titleLines: string[]
+	className?: string
+}
+
+interface Props {
+	thumbnailItemsList: ThumbnailItem[]
+}
+
+const { thumbnailItemsList } = Astro.props
+---
+
+<div class='min-h-screen w-full overflow-x-auto p-8'>
+	<div class='mx-auto w-full max-w-[var(--container-xs)] sm:max-w-[var(--container-sm)] md:max-w-[var(--container-md)] lg:max-w-[var(--container-lg)] xl:max-w-[var(--container-xl)]'>
+		<ThumbnailsGrid {thumbnailItemsList} />
+	</div>
+</div>

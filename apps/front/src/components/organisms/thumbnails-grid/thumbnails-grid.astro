@@ -1,0 +1,27 @@
+---
+import ThumbnailItem from '../../molecules/thumbnail-item/thumbnail-item.astro'
+import { type ContentImageProps } from '../../atoms/content-image/content-image.astro'
+
+interface ThumbnailItem {
+	slug: string
+	image: ContentImageProps
+	titleLines: string[]
+	className?: string
+}
+
+interface Props {
+	thumbnailItemsList: ThumbnailItem[]
+}
+
+const { thumbnailItemsList } = Astro.props
+---
+
+<div
+	class='grid grid-cols-2 gap-gap-xs sm:gap-gap-sm md:grid-cols-3 md:gap-gap-md lg:gap-gap-lg xl:gap-gap-xl'
+>
+	{
+		thumbnailItemsList.map(thumbnail => (
+			<ThumbnailItem {...thumbnail} />
+		))
+	}
+</div>
