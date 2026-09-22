@@ -21,7 +21,7 @@ const meta = {
 	},
 	args: {
 		alt: 'Abstract placeholder image',
-		src: placeholder.src,
+		src: placeholder,
 		intrinsicWidth: placeholder.width,
 		intrinsicHeight: placeholder.height,
 		variant: 'full',

@@ -1,0 +1,16 @@
+---
+import Header from './header.astro'
+
+interface Props {
+	preview: 'full' | 'small'
+}
+
+const { preview = 'full' } = Astro.props
+---
+
+<div class:list={[
+	'min-h-screen w-full bg-white',
+	preview === 'small' && 'mx-auto max-w-[360px]',
+]}>
+	<Header />
+</div>

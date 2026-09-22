@@ -1,0 +1,38 @@
+---
+import IconClickable from './icon-clickable.astro'
+import BehanceIcon from '../icons/behance.astro'
+import EnvelopeIcon from '../icons/envelope.astro'
+import InstagramIcon from '../icons/instagram.astro'
+
+const icons = {
+	behance: BehanceIcon,
+	envelope: EnvelopeIcon,
+	instagram: InstagramIcon,
+} as const
+
+type IconName = keyof typeof icons
+
+interface Props {
+	url: string
+	target?: '_blank' | '_self' | '_parent' | '_top'
+	ariaLabel: string
+	className?: string
+	icon: IconName
+	iconClassName?: string
+}
+
+const {
+	ariaLabel,
+	className = 'inline-flex items-center justify-center',
+	icon,
+	iconClassName = 'size-8 text-black',
+	target = '_blank',
+	url,
+} = Astro.props
+
+const Icon = icons[icon]
+---
+
+<IconClickable {url} {target} {ariaLabel} {className}>
+	<Icon className={iconClassName} />
+</IconClickable>

@@ -3,7 +3,7 @@ import goat from '../../atoms/content-image/goat.jpg'
 
 const image = {
 	alt: 'Goat placeholder image',
-	src: goat.src,
+	src: goat,
 	intrinsicWidth: goat.width,
 	intrinsicHeight: goat.height,
 }
