@@ -17,11 +17,7 @@ const { thumbnailItemsList } = Astro.props
 ---
 
 <div
-	class='grid grid-cols-2 gap-gap-xs sm:gap-gap-sm md:grid-cols-3 md:gap-gap-md lg:gap-gap-lg xl:gap-gap-xl'
+	class='grid grid-cols-2 gap-gap-xs sm:gap-gap-sm md:grid-cols-3 md:gap-gap-md lg:gap-gap-lg xl:gap-gap-xl pb-16'
 >
-	{
-		thumbnailItemsList.map(thumbnail => (
-			<ThumbnailItem {...thumbnail} />
-		))
-	}
+	{thumbnailItemsList.map(thumbnail => <ThumbnailItem {...thumbnail} />)}
 </div>

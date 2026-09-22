@@ -1,0 +1,43 @@
+---
+import IconClickable from '../../atoms/icon-clickable/icon-clickable.astro'
+import BehanceIcon from '../../atoms/icons/behance.astro'
+import EnvelopeIcon from '../../atoms/icons/envelope.astro'
+import InstagramIcon from '../../atoms/icons/instagram.astro'
+---
+
+<footer class='fixed bottom-0 left-0 w-full h-12.75 bg-white'>
+	<div class='site-container h-full flex items-center justify-end'>
+		<nav aria-label='Footer navigation'>
+			<ul class='flex items-center gap-4'>
+				<li>
+					<IconClickable
+						url='https://www.behance.net/martasieczkowska'
+						ariaLabel='Behance'
+						className='inline-flex items-center justify-center'
+					>
+						<BehanceIcon className='size-5 text-black' />
+					</IconClickable>
+				</li>
+				<li>
+					<IconClickable
+						url='mailto:marta.sieczkowska@vp.pl'
+						target='_self'
+						ariaLabel='Email'
+						className='inline-flex items-center justify-center'
+					>
+						<EnvelopeIcon className='size-5 text-black' />
+					</IconClickable>
+				</li>
+				<li>
+					<IconClickable
+						url='https://www.instagram.com/mm_sieczkowska/'
+						ariaLabel='Instagram'
+						className='inline-flex items-center justify-center'
+					>
+						<InstagramIcon className='size-5 text-black' />
+					</IconClickable>
+				</li>
+			</ul>
+		</nav>
+	</div>
+</footer>

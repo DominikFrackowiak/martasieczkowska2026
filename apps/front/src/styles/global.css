@@ -27,6 +27,9 @@
 @theme {
 	--font-sans: 'Roboto', ui-sans-serif, system-ui, sans-serif;
 	--font-serif: 'Source Serif';
+	--color-white: #f7f7f7;
+	--color-black: #080808;
+ --breakpoint-xs: 340px;
 	--breakpoint-sm: 576px;
 	--breakpoint-md: 768px;
 	--breakpoint-lg: 992px;
@@ -47,9 +50,17 @@
 }
 
 body {
-	@apply font-serif;
+	@apply font-serif text-black bg-white;
 }
 
 .nav-element {
-	@apply font-sans;
+	@apply font-sans font-light;
+}
+
+.site-container {
+	@apply w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto;
+}
+
+.active {
+	@apply font-semibold;
 }

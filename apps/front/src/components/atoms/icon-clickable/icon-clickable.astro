@@ -1,0 +1,20 @@
+---
+interface Props {
+	url: string
+	target?: '_blank' | '_self' | '_parent' | '_top'
+	ariaLabel: string
+	className?: string
+}
+
+const { ariaLabel, className, target = '_blank', url } = Astro.props
+---
+
+<a
+	href={url}
+	target={target}
+	rel={target === '_blank' ? 'noreferrer' : undefined}
+	aria-label={ariaLabel}
+	class={className}
+>
+	<slot />
+</a>

@@ -14,7 +14,7 @@ const { textLines } = Astro.props
 	{
 		textLines.map(line =>
 			typeof line === 'string' ? (
-				<Text as='span' className='block border'>
+				<Text as='span' className='block'>
 					{line}
 				</Text>
 			) : (

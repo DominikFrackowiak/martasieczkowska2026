@@ -1,0 +1,70 @@
+---
+import { cn } from '../../../lib/cn'
+import Logo from '../../atoms/logo/logo.astro'
+
+interface Props {
+	className?: string
+}
+
+const { className } = Astro.props
+---
+
+<header
+	class={cn(
+		'relative z-10 flex flex-col items-center bg-white text-black',
+		className
+	)}
+	data-header
+>
+	<div
+		class='site-container flex flex-col md:flex-row justify-between items-center'
+	>
+		<Logo className='hidden md:inline-block text-black' />
+
+		<nav
+			class='hidden md:flex w-62.5 justify-between'
+			aria-label='Main navigation'
+		>
+			<a class='nav-element' href='' data-nav-category='graphic-design'
+				>graphic design</a
+			>
+			<a class='nav-element' href='' data-nav-category='illustration'
+				>illustration</a
+			>
+			<a class='nav-element' href='/about'>about</a>
+		</nav>
+	</div>
+
+	<nav
+		id='mobile-navigation'
+		class='flex max-h-0 w-full flex-col items-center gap-3 overflow-hidden border-b bg-white opacity-0 transition-all duration-300 pointer-events-none md:hidden'
+		aria-label='Main navigation'
+		data-mobile-navigation
+	>
+		<a class='nav-element mt-3' href='' data-nav-category='graphic-design'
+			>graphic design</a
+		>
+		<a class='nav-element' href='' data-nav-category='illustration'
+			>illustration</a
+		>
+		<a class='nav-element mb-3' href='/about'>about</a>
+	</nav>
+
+	<button
+		type='button'
+		class='md:hidden nav-element cursor-pointer py-2 w-full mt-3'
+		aria-expanded='false'
+		aria-controls='mobile-navigation'
+		data-menu-button
+	>
+		MENU
+	</button>
+	<Logo className='inline-block md:hidden' />
+</header>
+
+<script>
+	import { initHeaderNavigation } from './header-navigation'
+
+	initHeaderNavigation()
+	document.addEventListener('astro:page-load', () => initHeaderNavigation())
+</script>
