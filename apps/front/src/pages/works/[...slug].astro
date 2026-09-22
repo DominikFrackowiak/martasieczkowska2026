@@ -1,0 +1,30 @@
+---
+import { projectsMock } from '../../data/projects-mock'
+import Layout from '../../layouts/Layout.astro'
+import ProjectGallery from '../../components/organisms/project-gallery/project-gallery.astro'
+import ProjectIntro from '../../components/molecules/project-intro/project-intro.astro'
+import type { ProjectMock } from '../../data/projects-mock'
+
+export function getStaticPaths() {
+	return projectsMock.map(project => ({
+		params: { slug: project.slug },
+		props: { project },
+	}))
+}
+
+const { project } = Astro.props as { project: ProjectMock }
+---
+
+<Layout>
+	<div class='flex flex-col xl:flex-row justify-between gap-4'>
+		<ProjectIntro
+			className='order-0 xl:order-1 w-full xl:max-w-62.5'
+			headingLines={project.intro.headingLines}
+			descriptionParagraphs={project.intro.descriptionParagraphs}
+		/>
+		<ProjectGallery
+			className='order-1 xl:order-0 w-full xl:max-w-181'
+			galleryRows={project.galleryRows}
+		/>
+	</div>
+</Layout>
