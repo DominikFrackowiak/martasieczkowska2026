@@ -10,6 +10,6 @@ export interface ProjectGalleryProps {
 const { className, galleryRows } = Astro.props as ProjectGalleryProps
 ---
 
-<div class={cn('flex w-full flex-col justify-start gap-2', className)}>
+<div class={cn('flex w-full flex-col justify-start spacing', className)}>
 	{galleryRows.map((row) => <GalleryRow {...row} />)}
 </div>

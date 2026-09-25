@@ -27,8 +27,9 @@
 @theme {
 	--font-sans: 'Roboto', ui-sans-serif, system-ui, sans-serif;
 	--font-serif: 'Source Serif';
-	--color-white: #f7f7f7;
+	--color-white: #fcfcfc;
 	--color-black: #080808;
+	--color-gray: #cccccc;
  --breakpoint-xs: 340px;
 	--breakpoint-sm: 576px;
 	--breakpoint-md: 768px;
@@ -63,4 +64,8 @@ body {
 
 .active {
 	@apply font-semibold;
+}
+
+.spacing{
+	@apply gap-gap-xs sm:gap-gap-sm md:grid-cols-3 md:gap-gap-md lg:gap-gap-lg xl:gap-gap-xl;
 }

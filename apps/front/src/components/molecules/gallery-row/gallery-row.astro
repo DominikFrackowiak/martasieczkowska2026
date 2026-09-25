@@ -30,6 +30,6 @@ export interface GalleryRowProps {
 const { align = 'start', className, imageItems, justify = 'start' } = Astro.props as GalleryRowProps
 ---
 
-<div class={cn('flex w-full gap-2', alignments[align], justifications[justify], className)}>
+<div class={cn('flex w-full spacing', alignments[align], justifications[justify], className)}>
 	{imageItems.map((image) => <ContentImage {...image} />)}
 </div>
