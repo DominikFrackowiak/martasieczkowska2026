@@ -13,11 +13,12 @@ type TextVariant = keyof typeof variants
 
 interface Props {
 	className?: string
-	as: 'p' | 'span' | 'caption'
+	as?: 'p' | 'span' | 'caption'
 	variant?: TextVariant
+	
 }
 
-const { as, className, variant = 'regularText' } = Astro.props as Props
+const { as = 'p', className, textLines, variant = 'regularText' } = Astro.props as Props
 
 const ElementHTML = as
 ---

@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Text from '../components/atoms/text/text.astro'
+import Experience from '../components/molecules/experience/experience.astro'
+import ContentImage from '../components/atoms/content-image/content-image.astro'
+---
+
+<Layout isWithArrows={false}>
+ <Text className='w-full max-w-127.5'>Hello, I’m Marta and I'm a graphic designer and illustrator from Poland.</Text>
+ <Experience textLines={['My experience covers / ranges from:', ['editorial design', 'through'], ['typography', "''"], ['educational illustration', "''"], ['illustration for children', "''"], ['press illustration', "''"], ['infographics', 'to'], 'branding']}/>
+ <div>
+ <Text className='w-full max-w-127.5'>
+  Sometimes I’m also in charge of children books’ and schoolbooks' layouts, and that's the field of interest I'm pursuing and within which I’m trying to work as often as it's possible.
+ </Text>
+ <Text className='w-full max-w-127.5'>I also had the pleasure to conduct workshops with both kids and adults on books and lettering.</Text>
+</div>
+<ContentImage alt='Marta Sieczkowska - portrait' intrinsicHeight='420' intrinsicWidth='324' src='https://dominikfrackowiak.github.io/martasieczkowska/IMG/ABOUT_ME_360/portret_1x.jpg' variant='1/5'/>
+ <div>
+ <Text className='w-full max-w-127.5'>
+  contact me:
+ </Text>
+ <Text className='w-full max-w-127.5'>marta.sieczkowska@vp.pl</Text>
+</div>
+</Layout>

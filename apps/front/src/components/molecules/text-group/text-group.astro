@@ -1,0 +1,13 @@
+---
+
+
+interface Props{
+ className?: string
+}
+
+const {className} = Astro.props
+---
+
+<div class='flex flex-col'>
+ <slot/>
+</div>
