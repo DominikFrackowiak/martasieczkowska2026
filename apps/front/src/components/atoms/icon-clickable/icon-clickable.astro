@@ -4,12 +4,17 @@ interface Props {
 	target?: '_blank' | '_self' | '_parent' | '_top'
 	ariaLabel: string
 	className?: string
+	as?: 'button' | 'a'
+	[key: string]: unknown
 }
 
-const { ariaLabel, className, target = '_blank', url } = Astro.props
+const { ariaLabel, as = 'a', className, target = '_blank', url, ...props } = Astro.props
+
+const ElementHTML = as
 ---
 
-<a
+<ElementHTML
+	{...props}
 	href={url}
 	target={target}
 	rel={target === '_blank' ? 'noreferrer' : undefined}
@@ -17,4 +22,4 @@ const { ariaLabel, className, target = '_blank', url } = Astro.props
 	class={className}
 >
 	<slot />
-</a>
+</ElementHTML>

@@ -11,10 +11,11 @@ const { className } = Astro.props
 
 <header
 	class={cn(
-		'relative z-10 flex flex-col items-center bg-white text-black',
+		'relative z-10 flex flex-col items-center bg-white text-black py-4',
 		className
 	)}
 	data-header
+	id='header'
 >
 	<div
 		class='site-container flex flex-col md:flex-row justify-between items-center'

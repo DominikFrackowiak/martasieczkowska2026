@@ -1,0 +1,23 @@
+---
+
+import IconClickable from '../../atoms/icon-clickable/icon-clickable.astro'
+import AngleLeft from '../../atoms/icons/angle-left.astro'
+import AngleRight from '../../atoms/icons/angle-right.astro'
+import Grid from '../../atoms/icons/grid.astro'
+
+interface Props{
+ isWithArrows?: boolean
+ previousUrl?: string
+ nextUrl?: string
+}
+
+const {isWithArrows=true, previousUrl='/', nextUrl='/'} = Astro.props
+---
+
+<nav class='w-full' >
+ <div class='w-full flex justify-center my-4 text-gray'>
+ {isWithArrows?<IconClickable as='a' url={previousUrl} className={'cursor-pointer py-2 px-2'}><AngleLeft className='size-5'/></IconClickable>:null}
+ <IconClickable as='a' url='/' className={'cursor-pointer py-2 px-2'}><Grid className='size-6'/></IconClickable>
+ {isWithArrows?<IconClickable as='a' url={nextUrl} className={'cursor-pointer py-2 px-2'}><AngleRight className='size-5'/></IconClickable>:null}
+ </div>
+</nav>

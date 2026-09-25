@@ -4,14 +4,19 @@ import '../styles/global.css'
 import Header from '../components/organisms/header/header.astro'
 import Footer from '../components/organisms/footer/footer.astro'
 import ThumbnailsGrid from '../components/organisms/thumbnails-grid/thumbnails-grid.astro'
+import BackwardForwardNavigation from '../components/organisms/backward-forward-navigation/backward-forward-navigation.astro'
+import IconClickable from '../components/atoms/icon-clickable/icon-clickable.astro'
+import ArrowUp from '../components/atoms/icons/arrow-up.astro'
 import { thumbnailItemsList } from '../data/projects-mock'
 
 interface Props {
 	metatitle?: string
 	metadescription?: string
+	isWithBackwordForwardNavigation?: boolean
+	isWithArrows?: boolean
 }
 
-const { metatitle = 'test', metadescription = 'test' } = Astro.props
+const { isWithBackwordForwardNavigation=true, isWithArrows=true, metatitle = 'test', metadescription = 'test' } = Astro.props
 ---
 
 <!doctype html>
@@ -19,18 +24,30 @@ const { metatitle = 'test', metadescription = 'test' } = Astro.props
 	<head>
 		<meta charset='utf-8' />
 		<meta name='viewport' content='width=device-width' />
-		<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
-		<link rel='icon' href='/favicon.ico' />
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
 		<meta name='generator' content={Astro.generator} />
 		<meta name='description' content={metadescription} />
 		<title>Marta Sieczkowska | {metatitle}</title>
 		<ClientRouter />
 	</head>
-	<body class='flex flex-col gap-4 site-container'>
-		<Header className='mb-8' />
+	<body class='flex flex-col spacing site-container'>
+		<Header className='mb-2' />
 		<slot />
+		{isWithBackwordForwardNavigation? <BackwardForwardNavigation isWithArrows={isWithArrows}/> : null}
 		<ThumbnailsGrid thumbnailItemsList={thumbnailItemsList} />
 		<Footer />
+		<IconClickable
+			target='_self'
+			url='#header'
+			ariaLabel='Back to top'
+			className='icon-clickable sticky bottom-70 self-end right-10 z-20 hidden p-1 rounded-full bg-white/20'
+			data-back-to-top
+		>
+			<ArrowUp className='size-10'/>
+		</IconClickable>
 	</body>
 </html>
 
@@ -42,3 +59,31 @@ const { metatitle = 'test', metadescription = 'test' } = Astro.props
 		height: 100%;
 	}
 </style>
+
+<script>
+	let removeBackToTopScrollListener: (() => void) | undefined
+
+	function initBackToTopButton() {
+		removeBackToTopScrollListener?.()
+
+		const iconClickable = document.querySelector<HTMLElement>('[data-back-to-top]')
+
+		if (!iconClickable) {
+			return
+		}
+
+		const toggleBackToTopButton = () => {
+			iconClickable.classList.toggle('hidden', window.scrollY < 500)
+		}
+
+		toggleBackToTopButton()
+		window.addEventListener('scroll', toggleBackToTopButton, { passive: true })
+
+		removeBackToTopScrollListener = () => {
+			window.removeEventListener('scroll', toggleBackToTopButton)
+		}
+	}
+
+	initBackToTopButton()
+	document.addEventListener('astro:page-load', initBackToTopButton)
+</script>
