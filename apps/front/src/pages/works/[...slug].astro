@@ -1,21 +1,21 @@
 ---
-import { projectsMock } from '../../data/projects-mock'
+import { getWorks, getProject, type Project } from '../../lib/works'
 import Layout from '../../layouts/Layout.astro'
 import ProjectGallery from '../../components/organisms/project-gallery/project-gallery.astro'
 import ProjectIntro from '../../components/molecules/project-intro/project-intro.astro'
-import type { ProjectMock } from '../../data/projects-mock'
 
-export function getStaticPaths() {
-	return projectsMock.map(project => ({
-		params: { slug: project.slug },
-		props: { project },
+export async function getStaticPaths() {
+	const works = await getWorks(import.meta.env.CMS_URL)
+	return works.map(work => ({
+		params: { slug: work.slug },
+		props: { project: getProject(work) },
 	}))
 }
 
-const { project } = Astro.props as { project: ProjectMock }
+const { project } = Astro.props as { project: Project }
 ---
 
-<Layout>
+<Layout metatitle={project.seo.metaTitle} metadescription={project.seo.metaDescription}>
 	<div class='flex flex-col xl:flex-row justify-between gap-4'>
 		<ProjectIntro
 			className='order-0 xl:order-1 w-full xl:max-w-62.5'

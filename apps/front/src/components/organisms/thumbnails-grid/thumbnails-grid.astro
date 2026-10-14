@@ -16,8 +16,12 @@ interface Props {
 const { thumbnailItemsList } = Astro.props
 ---
 
-<div
-	class='grid grid-cols-2 pb-16 spacing'
->
-	{thumbnailItemsList.map(thumbnail => <ThumbnailItem {...thumbnail} />)}
-</div>
+{
+	thumbnailItemsList.length > 0 ? (
+		<div class='grid grid-cols-2 pb-16 spacing'>
+			{thumbnailItemsList.map(thumbnail => <ThumbnailItem {...thumbnail} />)}
+		</div>
+	) : (
+		<p class='pb-16'>Sorry, no data to show yet.</p>
+	)
+}

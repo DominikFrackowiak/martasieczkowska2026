@@ -2,6 +2,8 @@
 import { Image } from 'astro:assets'
 import type { ImageMetadata } from 'astro'
 import { cn } from '../../../lib/cn'
+import { cloudinaryImageURL } from '../../../lib/cloudinary'
+import Text from '../text/text.astro'
 
 const variants = {
 	full: 'w-full',
@@ -26,15 +28,29 @@ export interface ContentImageProps {
 	intrinsicHeight: number | `${number}`
 	className?: string
 	variant?: ContentImageVariant
+	caption?: string
+	sizes?: string
 }
 
-const { alt, src, intrinsicWidth, intrinsicHeight, className, variant = 'full' } = Astro.props as ContentImageProps
+const { alt, caption, src, intrinsicWidth, intrinsicHeight, className, variant = 'full', sizes } = Astro.props as ContentImageProps
+// Remote URLs go straight to their host; Astro optimizes local image imports.
+const remoteSrc = typeof src === 'string' ? cloudinaryImageURL(src, Number(intrinsicWidth)) : undefined
+const imageProps = {
+	alt,
+	width: intrinsicWidth,
+	height: intrinsicHeight,
+	class: cn('h-auto min-w-0 w-full', !caption && variants[variant], className),
+	loading: 'lazy' as const,
+	decoding: 'async' as const,
+	sizes,
+}
 ---
 
-<Image
-	alt={alt}
-	class={cn('h-auto min-w-0 w-full', variants[variant], className)}
-	src={src}
-	width={intrinsicWidth}
-	height={intrinsicHeight}
-/>
+{caption ? (
+	<figure class={cn('flex min-w-0 flex-col gap-1', variants[variant])}>
+		{typeof src === 'string' ? <img {...imageProps} src={remoteSrc} /> : <Image {...imageProps} src={src} />}
+		<Text as='figcaption' variant='caption'>{caption}</Text>
+	</figure>
+) : (
+	typeof src === 'string' ? <img {...imageProps} src={remoteSrc} /> : <Image {...imageProps} src={src} />
+)}

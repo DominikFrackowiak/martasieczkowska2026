@@ -7,7 +7,7 @@ import ThumbnailsGrid from '../components/organisms/thumbnails-grid/thumbnails-g
 import BackwardForwardNavigation from '../components/organisms/backward-forward-navigation/backward-forward-navigation.astro'
 import IconClickable from '../components/atoms/icon-clickable/icon-clickable.astro'
 import ArrowUp from '../components/atoms/icons/arrow-up.astro'
-import { thumbnailItemsList } from '../data/projects-mock'
+import { getWorks, getThumbnails } from '../lib/works'
 
 interface Props {
 	metatitle?: string
@@ -17,6 +17,7 @@ interface Props {
 }
 
 const { isWithBackwordForwardNavigation=true, isWithArrows=true, metatitle = 'test', metadescription = 'test' } = Astro.props
+const thumbnailItemsList = getThumbnails(await getWorks(import.meta.env.CMS_URL))
 ---
 
 <!doctype html>
