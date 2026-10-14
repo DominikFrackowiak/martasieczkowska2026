@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    works: Work;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +79,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    works: WorksSelect<false> | WorksSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -87,8 +89,12 @@ export interface Config {
     defaultIDType: string;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    about: About;
+  };
+  globalsSelect: {
+    about: AboutSelect<false> | AboutSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -149,6 +155,8 @@ export interface User {
 export interface Media {
   id: string;
   alt: string;
+  cloudinaryURL?: string | null;
+  cloudinaryPublicID?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -158,8 +166,66 @@ export interface Media {
   filesize?: number | null;
   width?: number | null;
   height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "works".
+ */
+export interface Work {
+  id: string;
+  title: string;
+  /**
+   * Used in /works/project-name. Use lowercase letters, numbers and hyphens. Keep this unchanged to preserve existing links.
+   */
+  slug: string;
+  category: 'Logo design' | 'Editorial' | 'Illustration' | 'Branding';
+  thumbnail: string | Media;
+  /**
+   * One entry per line shown when hovering over the listing image. Drag entries to reorder.
+   */
+  titleLines: {
+    text: string;
+    id?: string | null;
+  }[];
+  seo: {
+    /**
+     * The front adds the Marta Sieczkowska prefix.
+     */
+    metaTitle: string;
+    metaDescription: string;
+  };
+  intro: {
+    /**
+     * One entry per heading line. Drag entries to change their order.
+     */
+    headingLines: {
+      text: string;
+      id?: string | null;
+    }[];
+    /**
+     * Add one entry for each paragraph. Drag entries to reorder.
+     */
+    descriptionParagraphs: {
+      text: string;
+      id?: string | null;
+    }[];
+  };
+  /**
+   * Add a row, then choose its images. Drag rows or images to reorder them. Width proportions share the available space with the gaps between images.
+   */
+  galleryRows: {
+    align: 'start' | 'center' | 'end' | 'stretch';
+    justify: 'start' | 'center' | 'end' | 'between' | 'around';
+    images: {
+      image: string | Media;
+      variant: 'full' | 'grow' | '1/2' | '1/3' | '2/3' | '1/4' | '3/4' | '1/5' | '2/5' | '3/5' | '4/5';
+      caption?: string | null;
+      id?: string | null;
+    }[];
+    id?: string | null;
+  }[];
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -192,6 +258,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'works';
+        value: string | Work;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -263,6 +333,8 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  cloudinaryURL?: T;
+  cloudinaryPublicID?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -272,8 +344,61 @@ export interface MediaSelect<T extends boolean = true> {
   filesize?: T;
   width?: T;
   height?: T;
-  focalX?: T;
-  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "works_select".
+ */
+export interface WorksSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  category?: T;
+  thumbnail?: T;
+  titleLines?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  seo?:
+    | T
+    | {
+        metaTitle?: T;
+        metaDescription?: T;
+      };
+  intro?:
+    | T
+    | {
+        headingLines?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        descriptionParagraphs?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+      };
+  galleryRows?:
+    | T
+    | {
+        align?: T;
+        justify?: T;
+        images?:
+          | T
+          | {
+              image?: T;
+              variant?: T;
+              caption?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -314,6 +439,78 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about".
+ */
+export interface About {
+  id: string;
+  seo: {
+    /**
+     * Page title. The front adds the Marta Sieczkowska prefix.
+     */
+    metaTitle: string;
+    metaDescription: string;
+  };
+  introduction: string;
+  /**
+   * Ordered lines. Leave the right-hand text empty for a single line.
+   */
+  experience: {
+    text: string;
+    suffix?: string | null;
+    id?: string | null;
+  }[];
+  paragraphs: {
+    text: string;
+    id?: string | null;
+  }[];
+  portrait: {
+    image: string | Media;
+    caption?: string | null;
+  };
+  contactLabel: string;
+  email: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about_select".
+ */
+export interface AboutSelect<T extends boolean = true> {
+  seo?:
+    | T
+    | {
+        metaTitle?: T;
+        metaDescription?: T;
+      };
+  introduction?: T;
+  experience?:
+    | T
+    | {
+        text?: T;
+        suffix?: T;
+        id?: T;
+      };
+  paragraphs?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  portrait?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+      };
+  contactLabel?: T;
+  email?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
