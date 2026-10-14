@@ -24,7 +24,8 @@ const nextConfig: NextConfig = {
     return webpackConfig
   },
   turbopack: {
-    root: path.resolve(dirname),
+    // pnpm resolves packages from the shared node_modules at the workspace root.
+    root: path.resolve(dirname, '../..'),
   },
 }
 

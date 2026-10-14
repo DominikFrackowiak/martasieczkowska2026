@@ -18,9 +18,12 @@
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
   },
   "dependencies": {
+    "@payloadcms/db-mongodb": "3.88.0",
     "@payloadcms/next": "3.88.0",
+    "@payloadcms/plugin-cloud-storage": "3.88.0",
     "@payloadcms/richtext-lexical": "3.88.0",
     "@payloadcms/ui": "3.88.0",
+    "cloudinary": "^2.11.0",
     "cross-env": "^7.0.3",
     "dotenv": "16.4.7",
     "graphql": "^16.8.1",
@@ -28,8 +31,7 @@
     "payload": "3.88.0",
     "react": "19.2.6",
     "react-dom": "19.2.6",
-    "sharp": "0.34.2",
-    "@payloadcms/db-mongodb": "3.88.0"
+    "sharp": "0.34.2"
   },
   "devDependencies": {
     "@playwright/test": "1.58.2",
@@ -50,12 +52,5 @@
   "engines": {
     "node": "^18.20.2 || >=20.9.0",
     "pnpm": "^9 || ^10 || ^11"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "sharp",
-      "esbuild",
-      "unrs-resolver"
-    ]
   }
 }
