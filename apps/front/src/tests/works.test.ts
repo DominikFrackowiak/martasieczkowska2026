@@ -17,13 +17,13 @@ const page = (docs: unknown[], hasNextPage = false, nextPage: number | null = nu
 afterEach(() => vi.unstubAllGlobals())
 
 describe('Works CMS content', () => {
-  it('fetches every page with populated Media and deterministic ordering', async () => {
+  it('fetches every page with populated Media in the CMS custom order', async () => {
     const mock = vi.fn().mockResolvedValueOnce(page([work], true, 2, 2)).mockResolvedValueOnce(page([{ ...work, slug: 'branding' }], false, null, 2))
     vi.stubGlobal('fetch', mock)
     expect((await fetchWorks('https://cms.example.com/cms/')).map(item => item.slug)).toEqual(['ganna-glass-logo-design', 'branding'])
     expect(mock.mock.calls.map(([url]) => (url as URL).href)).toEqual([
-      'https://cms.example.com/cms/api/works?depth=1&limit=100&sort=createdAt&page=1',
-      'https://cms.example.com/cms/api/works?depth=1&limit=100&sort=createdAt&page=2',
+      'https://cms.example.com/cms/api/works?depth=1&limit=100&sort=_order&page=1',
+      'https://cms.example.com/cms/api/works?depth=1&limit=100&sort=_order&page=2',
     ])
   })
 

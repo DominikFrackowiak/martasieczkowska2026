@@ -50,7 +50,7 @@ export async function fetchWorks(cmsURL: string | undefined): Promise<WorkConten
     const endpoint = new URL(`${origin.pathname.replace(/\/$/, '')}/api/works`, origin)
     endpoint.searchParams.set('depth', '1')
     endpoint.searchParams.set('limit', '100')
-    endpoint.searchParams.set('sort', 'createdAt')
+    endpoint.searchParams.set('sort', '_order')
     endpoint.searchParams.set('page', String(page))
     let response: Response
     try {

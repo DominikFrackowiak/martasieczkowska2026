@@ -173,6 +173,7 @@ export interface Media {
  */
 export interface Work {
   id: string;
+  _order?: string | null;
   title: string;
   slug: string;
   /**
@@ -355,6 +356,7 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "works_select".
  */
 export interface WorksSelect<T extends boolean = true> {
+  _order?: T;
   title?: T;
   slug?: T;
   category?: T;

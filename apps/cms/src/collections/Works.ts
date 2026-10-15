@@ -24,6 +24,7 @@ export function createWorkSlug(title: string): string {
 
 export const Works: CollectionConfig = {
   slug: 'works',
+  orderable: true,
   labels: { singular: 'Project', plural: 'Projects' },
   admin: { useAsTitle: 'title', defaultColumns: ['title', 'category', 'slug'] },
   access: { read: () => true, create: authenticated, update: authenticated, delete: authenticated },
