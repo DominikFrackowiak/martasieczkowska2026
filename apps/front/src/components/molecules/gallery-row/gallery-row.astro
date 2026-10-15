@@ -31,5 +31,5 @@ const { align = 'start', className, imageItems, justify = 'start' } = Astro.prop
 ---
 
 <div class={cn('flex w-full spacing flex-col lg:flex-row', alignments[align], justifications[justify], className)}>
-	{imageItems.map((image) => <ContentImage {...image} />)}
+	{imageItems.map((image) => <ContentImage {...image} className={cn('gallery-row-image cursor-pointer', image.className)} />)}
 </div>

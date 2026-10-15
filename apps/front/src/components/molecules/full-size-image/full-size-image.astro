@@ -1,0 +1,47 @@
+---
+import IconClickable from '../../atoms/icon-clickable/icon-clickable.astro'
+import CloseIcon from '../../atoms/icons/close-icon.astro'
+---
+
+<div class='hidden justify-center items-center fixed inset-0 h-full min-h-screen w-full bg-white/80 z-20 cursor-pointer' id='full-size-image-wrapper'>
+	<IconClickable as='button' url='' ariaLabel='Close image preview' type='button' className='absolute top-16 right-8 text-black/80 cursor-pointer'><CloseIcon className='h-8!'/></IconClickable>
+	<img alt='' id='full-size-image' class='cursor-pointer max-h-screen max-w-full object-contain py-10' />
+</div>
+
+<script>
+	let cleanup: (() => void) | undefined
+
+	function initImagePreview() {
+		cleanup?.()
+		const wrapper = document.querySelector<HTMLElement>('#full-size-image-wrapper')
+		const preview = wrapper?.querySelector<HTMLImageElement>('#full-size-image')
+		const gallery = document.querySelector<HTMLElement>('#project-gallery')
+		if (!wrapper || !preview || !gallery) return
+
+		const controller = new AbortController()
+		const options = { signal: controller.signal }
+		const close = () => {
+			wrapper.classList.add('hidden')
+			wrapper.classList.remove('flex')
+			preview.removeAttribute('src')
+			preview.alt = ''
+		}
+
+		gallery.querySelectorAll<HTMLImageElement>('.gallery-row-image').forEach(image => {
+			image.addEventListener('click', () => {
+				preview.src = image.currentSrc || image.src
+				preview.alt = image.alt
+				wrapper.classList.remove('hidden')
+				wrapper.classList.add('flex')
+			}, options)
+		})
+		wrapper.addEventListener('click', close, options)
+		document.addEventListener('keydown', event => {
+			if (event.key === 'Escape') close()
+		}, options)
+		cleanup = () => controller.abort()
+	}
+
+	document.addEventListener('astro:page-load', initImagePreview)
+	document.addEventListener('astro:before-swap', () => cleanup?.())
+</script>
