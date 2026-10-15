@@ -16,8 +16,8 @@ const {isWithArrows=true, previousUrl='/', nextUrl='/'} = Astro.props
 
 <nav class='w-full' >
  <div class='w-full flex justify-center items-center my-4 text-gray'>
- {isWithArrows?<IconClickable as='a' url={previousUrl} className={'cursor-pointer py-2 px-2'}><AngleLeft className='size-5'/></IconClickable>:null}
- <IconClickable as='a' url='/' className={'cursor-pointer py-2 px-2'}><Grid className='size-6'/></IconClickable>
- {isWithArrows?<IconClickable as='a' url={nextUrl} className={'cursor-pointer py-2 px-2'}><AngleRight className='size-5'/></IconClickable>:null}
+ {isWithArrows?<IconClickable as='a' target='_self' ariaLabel='Previous project' data-project-previous hidden={previousUrl === '/'} url={previousUrl} className={'cursor-pointer py-2 px-2'}><AngleLeft className='size-5'/></IconClickable>:null}
+ <IconClickable as='a' target='_self' ariaLabel='All projects' data-project-index url='/' className={'cursor-pointer py-2 px-2'}><Grid className='size-6'/></IconClickable>
+ {isWithArrows?<IconClickable as='a' target='_self' ariaLabel='Next project' data-project-next hidden={nextUrl === '/'} url={nextUrl} className={'cursor-pointer py-2 px-2'}><AngleRight className='size-5'/></IconClickable>:null}
  </div>
 </nav>

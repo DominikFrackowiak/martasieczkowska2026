@@ -122,6 +122,6 @@ export type Project = ReturnType<typeof getProject>
 
 export function getThumbnails(works: WorkContent[]) {
   return works.map(work => ({
-    slug: work.slug, image: getImage(work.thumbnail.image), titleLines: work.thumbnail.titleLines.map(line => line.text),
+    slug: work.slug, category: work.category, image: getImage(work.thumbnail.image), titleLines: work.thumbnail.titleLines.map(line => line.text),
   }))
 }

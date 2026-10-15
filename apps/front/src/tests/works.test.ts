@@ -44,7 +44,7 @@ describe('Works CMS content', () => {
     ])
     expect(project.galleryRows[0].imageItems[0]).toEqual({ src: image.url, intrinsicWidth: 900, intrinsicHeight: 600, alt: image.alt, caption: 'Credit', variant: '1/2' })
     expect(project.galleryRows[0].imageItems[1].caption).toBeUndefined()
-    expect(getThumbnails([parsed])[0]).toEqual({ slug: 'ganna-glass-logo-design', image: { src: image.url, intrinsicWidth: 900, intrinsicHeight: 600, alt: image.alt }, titleLines: ['Ganna Glass.', 'logo design'] })
+    expect(getThumbnails([parsed])[0]).toEqual({ slug: 'ganna-glass-logo-design', category: 'graphic-design', image: { src: image.url, intrinsicWidth: 900, intrinsicHeight: 600, alt: image.alt }, titleLines: ['Ganna Glass.', 'logo design'] })
   })
 
   it('rejects invalid slugs, categories, empty content and unresolved Media', () => {

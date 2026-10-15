@@ -18,6 +18,10 @@ interface Props {
 
 const { isWithBackwordForwardNavigation=true, isWithArrows=true, metatitle = 'test', metadescription = 'test' } = Astro.props
 const thumbnailItemsList = getThumbnails(await getWorks(import.meta.env.CMS_URL))
+const currentSlug = Astro.url.pathname.match(/^\/works\/([^/]+)\/?$/)?.[1]
+const currentIndex = thumbnailItemsList.findIndex(item => item.slug === currentSlug)
+const previousSlug = currentIndex > 0 ? thumbnailItemsList[currentIndex - 1].slug : undefined
+const nextSlug = currentIndex >= 0 ? thumbnailItemsList[currentIndex + 1]?.slug : undefined
 ---
 
 <!doctype html>
@@ -37,8 +41,8 @@ const thumbnailItemsList = getThumbnails(await getWorks(import.meta.env.CMS_URL)
 	<body class='flex flex-col spacing site-container'>
 		<Header className='mb-2' />
 		<slot />
-		{isWithBackwordForwardNavigation? <BackwardForwardNavigation isWithArrows={isWithArrows}/> : null}
-		<ThumbnailsGrid thumbnailItemsList={thumbnailItemsList} />
+		{isWithBackwordForwardNavigation? <BackwardForwardNavigation isWithArrows={isWithArrows} previousUrl={previousSlug ? `/works/${previousSlug}` : '/'} nextUrl={nextSlug ? `/works/${nextSlug}` : '/'}/> : null}
+		<ThumbnailsGrid thumbnailItemsList={thumbnailItemsList}/>
 		<Footer />
 		<IconClickable
 			target='_self'

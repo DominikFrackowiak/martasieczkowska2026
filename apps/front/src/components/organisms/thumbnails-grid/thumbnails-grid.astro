@@ -4,6 +4,7 @@ import { type ContentImageProps } from '../../atoms/content-image/content-image.
 
 interface ThumbnailItem {
 	slug: string
+	category?: string
 	image: ContentImageProps
 	titleLines: string[]
 	className?: string
@@ -18,10 +19,16 @@ const { thumbnailItemsList } = Astro.props
 
 {
 	thumbnailItemsList.length > 0 ? (
-		<div class='grid grid-cols-2 pb-16 spacing'>
+		<div class='grid grid-cols-2 pb-16 spacing' id='thumbnails-grid'>
 			{thumbnailItemsList.map(thumbnail => <ThumbnailItem {...thumbnail} />)}
 		</div>
 	) : (
-		<p class='pb-16'>Sorry, no data to show yet.</p>
+		null
 	)
 }
+<p class='pb-16' data-portfolio-empty hidden={thumbnailItemsList.length > 0}>Sorry, no data to show yet.</p>
+
+<style is:global>
+  [data-work-slug][hidden], [data-portfolio-empty][hidden],
+  [data-project-previous][hidden], [data-project-next][hidden] { display: none !important; }
+</style>

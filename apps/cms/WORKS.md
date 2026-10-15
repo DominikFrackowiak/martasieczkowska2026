@@ -23,7 +23,7 @@ For two equal images use two halves; for an asymmetric pair use two-thirds and o
 
 Projects support drag-and-drop ordering in the CMS collection list. The frontend fetches projects sorted by Payload's `_order` field. Rebuild the static frontend after changing their order to publish it.
 
-The listing lives on `/` and is also rendered by the shared Layout beneath other pages; `/works` redirects to `/`. All these thumbnails now use Works, preserving the grid, hover titles and `/works/slug` links. Existing category links only toggle the `category` query parameter and active header state: the original grid has no category filtering. That behavior, and navigation links returning to `/`, remain unchanged. No new filtering or category persistence is added.
+The listing lives on `/` and is also rendered by the shared Layout beneath other pages; `/works` redirects to `/`. Category links toggle the `category` query parameter and filter thumbnails in the browser. Project, previous/next and grid-return links preserve the selected category. Previous/next follows CMS order within that category, without wrapping at either end. Invalid categories, or a category that does not match the current project, are cleared. Without JavaScript the full listing and unfiltered project navigation remain available.
 
 The `[...slug].astro` route remains to avoid unnecessary routing changes. Slugs are restricted to a single URL segment. Renaming to `[slug].astro` would work for these slugs but offers little benefit for this task.
 

@@ -26,10 +26,10 @@ const { className } = Astro.props
 			class='hidden md:flex w-62.5 justify-between'
 			aria-label='Main navigation'
 		>
-			<a class='nav-element' href='' data-nav-category='graphic-design'
+			<a class='nav-element' href='/?category=graphic-design' data-nav-category='graphic-design'
 				>graphic design</a
 			>
-			<a class='nav-element' href='' data-nav-category='illustration'
+			<a class='nav-element' href='/?category=illustration' data-nav-category='illustration'
 				>illustration</a
 			>
 			<a class='nav-element' href='/about'>about</a>
@@ -42,10 +42,10 @@ const { className } = Astro.props
 		aria-label='Main navigation'
 		data-mobile-navigation
 	>
-		<a class='nav-element mt-3' href='' data-nav-category='graphic-design'
+		<a class='nav-element mt-3' href='/?category=graphic-design' data-nav-category='graphic-design'
 			>graphic design</a
 		>
-		<a class='nav-element' href='' data-nav-category='illustration'
+		<a class='nav-element' href='/?category=illustration' data-nav-category='illustration'
 			>illustration</a
 		>
 		<a class='nav-element mb-3' href='/about'>about</a>
@@ -65,7 +65,12 @@ const { className } = Astro.props
 
 <script>
 	import { initHeaderNavigation } from './header-navigation'
+	import { updatePortfolio } from '../../../lib/portfolio-navigation'
 
 	initHeaderNavigation()
 	document.addEventListener('astro:page-load', () => initHeaderNavigation())
+	window.addEventListener('popstate', () => initHeaderNavigation())
+	document.addEventListener('astro:before-swap', event => {
+		updatePortfolio(event.newDocument, event.to, false)
+	})
 </script>
