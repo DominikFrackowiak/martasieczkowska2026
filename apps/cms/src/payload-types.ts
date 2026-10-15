@@ -174,19 +174,24 @@ export interface Media {
 export interface Work {
   id: string;
   title: string;
-  /**
-   * Used in /works/project-name. Use lowercase letters, numbers and hyphens. Keep this unchanged to preserve existing links.
-   */
   slug: string;
-  category: 'Logo design' | 'Editorial' | 'Illustration' | 'Branding';
-  thumbnail: string | Media;
   /**
-   * One entry per line shown when hovering over the listing image. Drag entries to reorder.
+   * Used by the Graphic design and Illustration filters.
    */
-  titleLines: {
-    text: string;
-    id?: string | null;
-  }[];
+  category: 'graphic-design' | 'illustration';
+  thumbnail: {
+    /**
+     * Image shown for this project in the thumbnail grid.
+     */
+    image: string | Media;
+    /**
+     * The project title shown when hovering over the thumbnail. Add one entry per line and drag entries to reorder.
+     */
+    titleLines: {
+      text: string;
+      id?: string | null;
+    }[];
+  };
   seo: {
     /**
      * The front adds the Marta Sieczkowska prefix.
@@ -194,18 +199,18 @@ export interface Work {
     metaTitle: string;
     metaDescription: string;
   };
-  intro: {
+  description: {
     /**
-     * One entry per heading line. Drag entries to change their order.
+     * The main project title. Add one entry per displayed line and drag entries to reorder.
      */
-    headingLines: {
+    titleLines: {
       text: string;
       id?: string | null;
     }[];
     /**
      * Add one entry for each paragraph. Drag entries to reorder.
      */
-    descriptionParagraphs: {
+    paragraphs: {
       text: string;
       id?: string | null;
     }[];
@@ -353,12 +358,16 @@ export interface WorksSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   category?: T;
-  thumbnail?: T;
-  titleLines?:
+  thumbnail?:
     | T
     | {
-        text?: T;
-        id?: T;
+        image?: T;
+        titleLines?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
       };
   seo?:
     | T
@@ -366,16 +375,16 @@ export interface WorksSelect<T extends boolean = true> {
         metaTitle?: T;
         metaDescription?: T;
       };
-  intro?:
+  description?:
     | T
     | {
-        headingLines?:
+        titleLines?:
           | T
           | {
               text?: T;
               id?: T;
             };
-        descriptionParagraphs?:
+        paragraphs?:
           | T
           | {
               text?: T;

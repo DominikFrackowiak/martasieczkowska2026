@@ -43,7 +43,7 @@ export const projectsMock = [
 		slug: 'ganna-glass',
 		title: 'Ganna Glass. logo design',
 		titleLines: ['Ganna Glass.', 'logo design'],
-		category: 'Logo design',
+		category: 'graphic-design',
 		thumbnail: {
 			...goatImage,
 			alt: 'Ganna Glass logo design thumbnail',
@@ -72,7 +72,7 @@ export const projectsMock = [
 		slug: 'editorial-design',
 		title: 'Editorial design',
 		titleLines: ['Editorial', 'design'],
-		category: 'Editorial',
+		category: 'graphic-design',
 		thumbnail: {
 			...goatImage,
 			alt: 'Editorial design project thumbnail',
@@ -98,7 +98,7 @@ export const projectsMock = [
 		slug: 'educational-illustration',
 		title: 'Educational illustration',
 		titleLines: ['Educational', 'illustration'],
-		category: 'Illustration',
+		category: 'illustration',
 		thumbnail: {
 			...goatImage,
 			alt: 'Educational illustration project thumbnail',
@@ -123,7 +123,7 @@ export const projectsMock = [
 		slug: 'illustration-for-children',
 		title: 'Illustration for children',
 		titleLines: ['Illustration', 'for children'],
-		category: 'Illustration',
+		category: 'illustration',
 		thumbnail: {
 			...goatImage,
 			alt: 'Illustration for children project thumbnail',
@@ -150,7 +150,7 @@ export const projectsMock = [
 		slug: 'press-illustration',
 		title: 'Press illustration',
 		titleLines: ['Press', 'illustration'],
-		category: 'Illustration',
+		category: 'illustration',
 		thumbnail: {
 			...goatImage,
 			alt: 'Press illustration project thumbnail',
@@ -175,7 +175,7 @@ export const projectsMock = [
 		slug: 'branding',
 		title: 'Branding',
 		titleLines: ['Branding'],
-		category: 'Branding',
+		category: 'graphic-design',
 		thumbnail: {
 			...goatImage,
 			alt: 'Branding project thumbnail',

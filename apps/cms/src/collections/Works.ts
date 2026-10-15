@@ -2,25 +2,74 @@ import type { Access, CollectionConfig } from 'payload'
 
 const authenticated: Access = ({ req }) => Boolean(req.user)
 
+type TitleLine = { text?: unknown }
+
+export function getWorkTitle(lines: unknown): string {
+  if (!Array.isArray(lines)) return ''
+  return lines
+    .map((line: TitleLine) => typeof line?.text === 'string' ? line.text.trim() : '')
+    .filter(Boolean)
+    .join(' ')
+}
+
+export function createWorkSlug(title: string): string {
+  return title
+    .replace(/[łŁ]/g, character => character === 'Ł' ? 'L' : 'l')
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
+
 export const Works: CollectionConfig = {
   slug: 'works',
   labels: { singular: 'Project', plural: 'Projects' },
   admin: { useAsTitle: 'title', defaultColumns: ['title', 'category', 'slug'] },
   access: { read: () => true, create: authenticated, update: authenticated, delete: authenticated },
+  hooks: {
+    beforeValidate: [({ data, originalDoc }) => {
+      if (!data) return data
+      const description = data.description ?? originalDoc?.description
+      const title = getWorkTitle(description?.titleLines)
+      if (!title) return data
+
+      return {
+        ...data,
+        title,
+        // Keep published URLs stable when an editor later changes the title.
+        slug: originalDoc?.slug || createWorkSlug(title),
+      }
+    }],
+  },
   fields: [
-    { name: 'title', label: 'Project title', type: 'text', required: true },
+    { name: 'title', type: 'text', required: true, admin: { hidden: true } },
     {
-      name: 'slug', label: 'URL name', type: 'text', required: true, unique: true,
-      admin: { description: 'Used in /works/project-name. Use lowercase letters, numbers and hyphens. Keep this unchanged to preserve existing links.' },
+      name: 'slug', type: 'text', required: true, unique: true, index: true,
+      admin: { hidden: true },
       validate: (value: unknown) => typeof value === 'string' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value)
         ? true : 'Use lowercase letters and numbers separated by single hyphens.',
     },
-    { name: 'category', type: 'select', required: true, options: ['Logo design', 'Editorial', 'Illustration', 'Branding'] },
-    { name: 'thumbnail', label: 'Listing image', type: 'upload', relationTo: 'media', required: true },
     {
-      name: 'titleLines', label: 'Listing title lines', type: 'array', required: true, minRows: 1,
-      admin: { description: 'One entry per line shown when hovering over the listing image. Drag entries to reorder.' },
-      fields: [{ name: 'text', label: 'Line', type: 'text', required: true }],
+      name: 'category', type: 'select', required: true,
+      admin: { description: 'Used by the Graphic design and Illustration filters.' },
+      options: [
+        { label: 'Graphic design', value: 'graphic-design' },
+        { label: 'Illustration', value: 'illustration' },
+      ],
+    },
+    {
+      name: 'thumbnail', label: 'Thumbnail', type: 'group', fields: [
+        {
+          name: 'image', label: 'Image', type: 'upload', relationTo: 'media', required: true,
+          admin: { description: 'Image shown for this project in the thumbnail grid.' },
+        },
+        {
+          name: 'titleLines', label: 'Title lines', type: 'array', required: true, minRows: 1,
+          admin: { description: 'The project title shown when hovering over the thumbnail. Add one entry per line and drag entries to reorder.' },
+          fields: [{ name: 'text', label: 'Line', type: 'text', required: true }],
+        },
+      ],
     },
     {
       name: 'seo', label: 'SEO', type: 'group', fields: [
@@ -30,11 +79,11 @@ export const Works: CollectionConfig = {
       ],
     },
     {
-      name: 'intro', label: 'Project introduction', type: 'group', fields: [
-        { name: 'headingLines', label: 'Heading lines', type: 'array', required: true, minRows: 1,
-          admin: { description: 'One entry per heading line. Drag entries to change their order.' },
+      name: 'description', label: 'Project description', type: 'group', fields: [
+        { name: 'titleLines', label: 'Title lines', type: 'array', required: true, minRows: 1,
+          admin: { description: 'The main project title. Add one entry per displayed line and drag entries to reorder.' },
           fields: [{ name: 'text', label: 'Line', type: 'text', required: true }] },
-        { name: 'descriptionParagraphs', label: 'Description paragraphs', type: 'array', required: true, minRows: 1,
+        { name: 'paragraphs', label: 'Description paragraphs', type: 'array', required: true, minRows: 1,
           admin: { description: 'Add one entry for each paragraph. Drag entries to reorder.' },
           fields: [{ name: 'text', label: 'Paragraph', type: 'textarea', required: true }] },
       ],

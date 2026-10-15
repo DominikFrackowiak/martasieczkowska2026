@@ -15,11 +15,10 @@ const mediaSchema = z.object({
 export const workSchema = z.object({
   title: text,
   slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
-  category: z.enum(['Logo design', 'Editorial', 'Illustration', 'Branding'] satisfies Work['category'][]),
-  thumbnail: mediaSchema,
-  titleLines: lines,
+  category: z.enum(['graphic-design', 'illustration'] satisfies Work['category'][]),
+  thumbnail: z.object({ image: mediaSchema, titleLines: lines }),
   seo: z.object({ metaTitle: text, metaDescription: text }),
-  intro: z.object({ headingLines: lines, descriptionParagraphs: lines }),
+  description: z.object({ titleLines: lines, paragraphs: lines }),
   galleryRows: z.array(z.object({
     align: z.enum(['start', 'center', 'end', 'stretch']).nullish(),
     justify: z.enum(['start', 'center', 'end', 'between', 'around']).nullish(),
@@ -107,8 +106,8 @@ export function getProject(work: WorkContent) {
   return {
     slug: work.slug, seo: work.seo,
     intro: {
-      headingLines: work.intro.headingLines.map(line => line.text),
-      descriptionParagraphs: work.intro.descriptionParagraphs.map(paragraph => paragraph.text),
+      headingLines: work.description.titleLines.map(line => line.text),
+      descriptionParagraphs: work.description.paragraphs.map(paragraph => paragraph.text),
     },
     galleryRows: work.galleryRows.map(row => ({
       align: row.align ?? 'start', justify: row.justify ?? 'start',
@@ -123,6 +122,6 @@ export type Project = ReturnType<typeof getProject>
 
 export function getThumbnails(works: WorkContent[]) {
   return works.map(work => ({
-    slug: work.slug, image: getImage(work.thumbnail), titleLines: work.titleLines.map(line => line.text),
+    slug: work.slug, image: getImage(work.thumbnail.image), titleLines: work.thumbnail.titleLines.map(line => line.text),
   }))
 }

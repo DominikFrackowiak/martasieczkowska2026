@@ -3,10 +3,10 @@ import { fetchWorks, getWorks, getProject, getThumbnails, workSchema } from '../
 
 const image = { url: 'https://res.cloudinary.com/example/image/upload/v1/work.jpg', width: 900, height: 600, alt: 'Project image' }
 const work = {
-  title: 'Ganna Glass. logo design', slug: 'ganna-glass', category: 'Logo design', thumbnail: image,
-  titleLines: [{ text: 'Ganna Glass.' }, { text: 'logo design' }],
+  title: 'Ganna Glass. logo design', slug: 'ganna-glass-logo-design', category: 'graphic-design',
+  thumbnail: { image, titleLines: [{ text: 'Ganna Glass.' }, { text: 'logo design' }] },
   seo: { metaTitle: 'Ganna Glass', metaDescription: 'Logo design for Ganna Glass.' },
-  intro: { headingLines: [{ text: 'Ganna Glass.' }, { text: 'logo design' }], descriptionParagraphs: [{ text: 'First paragraph' }, { text: 'Second paragraph' }] },
+  description: { titleLines: [{ text: 'Ganna Glass.' }, { text: 'logo design' }], paragraphs: [{ text: 'First paragraph' }, { text: 'Second paragraph' }] },
   galleryRows: [
     { align: 'end', justify: 'between', images: [{ image, variant: '1/2', caption: 'Credit' }, { image, variant: '1/3', caption: null }] },
     { justify: 'center', images: [{ image, variant: '2/3' }] },
@@ -20,7 +20,7 @@ describe('Works CMS content', () => {
   it('fetches every page with populated Media and deterministic ordering', async () => {
     const mock = vi.fn().mockResolvedValueOnce(page([work], true, 2, 2)).mockResolvedValueOnce(page([{ ...work, slug: 'branding' }], false, null, 2))
     vi.stubGlobal('fetch', mock)
-    expect((await fetchWorks('https://cms.example.com/cms/')).map(item => item.slug)).toEqual(['ganna-glass', 'branding'])
+    expect((await fetchWorks('https://cms.example.com/cms/')).map(item => item.slug)).toEqual(['ganna-glass-logo-design', 'branding'])
     expect(mock.mock.calls.map(([url]) => (url as URL).href)).toEqual([
       'https://cms.example.com/cms/api/works?depth=1&limit=100&sort=createdAt&page=1',
       'https://cms.example.com/cms/api/works?depth=1&limit=100&sort=createdAt&page=2',
@@ -36,7 +36,7 @@ describe('Works CMS content', () => {
   it('preserves ordered lines, paragraphs, asymmetric rows, captions and intrinsic dimensions', () => {
     const parsed = workSchema.parse(work)
     const project = getProject(parsed)
-    expect(project.slug).toBe('ganna-glass')
+    expect(project.slug).toBe('ganna-glass-logo-design')
     expect(project.seo).toEqual(work.seo)
     expect(project.intro).toEqual({ headingLines: ['Ganna Glass.', 'logo design'], descriptionParagraphs: ['First paragraph', 'Second paragraph'] })
     expect(project.galleryRows.map(row => [row.align, row.justify, row.imageItems.map(item => item.variant)])).toEqual([
@@ -44,17 +44,21 @@ describe('Works CMS content', () => {
     ])
     expect(project.galleryRows[0].imageItems[0]).toEqual({ src: image.url, intrinsicWidth: 900, intrinsicHeight: 600, alt: image.alt, caption: 'Credit', variant: '1/2' })
     expect(project.galleryRows[0].imageItems[1].caption).toBeUndefined()
-    expect(getThumbnails([parsed])[0]).toEqual({ slug: 'ganna-glass', image: { src: image.url, intrinsicWidth: 900, intrinsicHeight: 600, alt: image.alt }, titleLines: ['Ganna Glass.', 'logo design'] })
+    expect(getThumbnails([parsed])[0]).toEqual({ slug: 'ganna-glass-logo-design', image: { src: image.url, intrinsicWidth: 900, intrinsicHeight: 600, alt: image.alt }, titleLines: ['Ganna Glass.', 'logo design'] })
   })
 
   it('rejects invalid slugs, categories, empty content and unresolved Media', () => {
     for (const changes of [
-      { slug: '../project' }, { category: 'Unknown' }, { galleryRows: [] }, { titleLines: [] },
-      { thumbnail: 'media-id' }, { thumbnail: null }, { thumbnail: { ...image, width: null } },
-      { thumbnail: { ...image, url: 'http://example.com/image.jpg' } }, { thumbnail: { ...image, alt: ' ' } },
+      { slug: '../project' }, { category: 'Unknown' }, { galleryRows: [] },
+      { thumbnail: { ...work.thumbnail, titleLines: [] } },
+      { thumbnail: { ...work.thumbnail, image: 'media-id' } }, { thumbnail: null },
+      { thumbnail: { ...work.thumbnail, image: { ...image, width: null } } },
+      { thumbnail: { ...work.thumbnail, image: { ...image, url: 'http://example.com/image.jpg' } } },
+      { thumbnail: { ...work.thumbnail, image: { ...image, alt: ' ' } } },
       { galleryRows: [{ images: [{ image: 'media-id' }] }] },
       { galleryRows: [{ images: [{ image, variant: 'arbitrary-css' }] }] },
     ]) expect(workSchema.safeParse({ ...work, ...changes }).success).toBe(false)
+    expect(workSchema.safeParse({ ...work, category: 'illustration' }).success).toBe(true)
   })
 
   it('supports the remaining mock compositions and pairs that share the entire row', () => {
@@ -80,8 +84,8 @@ describe('Works CMS content', () => {
   })
 
   it('reports the project and invalid field', async () => {
-    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(page([{ ...work, thumbnail: 'media-id' }])))
-    await expect(fetchWorks('https://cms.example.com')).rejects.toThrow(/ganna-glass.*thumbnail/)
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(page([{ ...work, thumbnail: { ...work.thumbnail, image: 'media-id' } }])))
+    await expect(fetchWorks('https://cms.example.com')).rejects.toThrow(/ganna-glass-logo-design.*thumbnail.image/)
   })
 
   it('fails clearly on missing configuration, HTTP failures and unreachable CMS', async () => {
