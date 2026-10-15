@@ -7,16 +7,16 @@ import Text from '../text/text.astro'
 
 const variants = {
 	full: 'w-full',
-	grow: 'flex-1',
-	'1/2': 'w-1/2',
-	'1/3': 'w-1/3',
-	'2/3': 'w-2/3',
-	'1/4': 'w-1/4',
-	'3/4': 'w-3/4',
-	'1/5': 'w-1/5',
-	'2/5': 'w-2/5',
-	'3/5': 'w-3/5',
-	'4/5': 'w-4/5',
+	grow: 'lg:flex-1',
+	'1/2': 'lg:w-1/2',
+	'1/3': 'lg:w-1/3',
+	'2/3': 'lg:w-2/3',
+	'1/4': 'lg:w-1/4',
+	'3/4': 'lg:w-3/4',
+	'1/5': 'lg:w-1/5',
+	'2/5': 'lg:w-2/5',
+	'3/5': 'lg:w-3/5',
+	'4/5': 'lg:w-4/5',
 } as const
 
 export type ContentImageVariant = keyof typeof variants
@@ -47,7 +47,7 @@ const imageProps = {
 ---
 
 {caption ? (
-	<figure class={cn('flex min-w-0 flex-col gap-1', variants[variant])}>
+	<figure class={cn('flex min-w-0 w-full flex-col gap-1', variants[variant])}>
 		{typeof src === 'string' ? <img {...imageProps} src={remoteSrc} /> : <Image {...imageProps} src={src} />}
 		<Text as='figcaption' variant='caption'>{caption}</Text>
 	</figure>
