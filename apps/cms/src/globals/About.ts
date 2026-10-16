@@ -1,10 +1,12 @@
 import type { GlobalConfig } from 'payload'
+import { triggerFrontendDeploy } from '../hooks/triggerFrontendDeploy'
 
 const authenticated = ({ req }: { req: { user?: unknown } }) => Boolean(req.user)
 
 export const About: GlobalConfig = {
   slug: 'about',
   label: 'About',
+  hooks: { afterChange: [triggerFrontendDeploy] },
   access: { read: () => true, update: authenticated },
   fields: [
     {

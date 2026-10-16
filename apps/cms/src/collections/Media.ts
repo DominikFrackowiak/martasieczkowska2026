@@ -1,7 +1,12 @@
 import type { CollectionConfig } from 'payload'
+import { triggerFrontendDeploy } from '../hooks/triggerFrontendDeploy'
 
 export const Media: CollectionConfig = {
   slug: 'media',
+  hooks: {
+    afterChange: [triggerFrontendDeploy],
+    afterDelete: [triggerFrontendDeploy],
+  },
   access: {
     read: () => true,
     create: ({ req }) => Boolean(req.user),

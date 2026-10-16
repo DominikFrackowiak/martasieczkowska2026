@@ -1,4 +1,5 @@
 import type { Access, CollectionConfig } from 'payload'
+import { triggerFrontendDeploy } from '../hooks/triggerFrontendDeploy'
 
 const authenticated: Access = ({ req }) => Boolean(req.user)
 
@@ -29,6 +30,8 @@ export const Works: CollectionConfig = {
   admin: { useAsTitle: 'title', defaultColumns: ['title', 'category', 'slug'] },
   access: { read: () => true, create: authenticated, update: authenticated, delete: authenticated },
   hooks: {
+    afterChange: [triggerFrontendDeploy],
+    afterDelete: [triggerFrontendDeploy],
     beforeValidate: [({ data, originalDoc }) => {
       if (!data) return data
       const description = data.description ?? originalDoc?.description

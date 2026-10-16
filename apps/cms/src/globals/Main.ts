@@ -1,8 +1,10 @@
 import type { GlobalConfig } from 'payload'
+import { triggerFrontendDeploy } from '../hooks/triggerFrontendDeploy'
 
 export const Main: GlobalConfig = {
   slug: 'main',
   label: 'Main',
+  hooks: { afterChange: [triggerFrontendDeploy] },
   access: {
     read: () => true,
     update: ({ req }) => Boolean(req.user),
