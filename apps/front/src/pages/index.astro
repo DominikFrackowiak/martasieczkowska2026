@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import { fetchMain } from '../lib/main'
+
+const main = await fetchMain(import.meta.env.CMS_URL)
 ---
 
-<Layout isWithBackwordForwardNavigation={false}/>
+<Layout isWithBackwordForwardNavigation={false} metatitle={main.seo.metaTitle} metadescription={main.seo.metaDescription} />

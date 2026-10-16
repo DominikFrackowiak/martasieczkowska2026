@@ -90,9 +90,11 @@ export interface Config {
   };
   fallbackLocale: null;
   globals: {
+    main: Main;
     about: About;
   };
   globalsSelect: {
+    main: MainSelect<false> | MainSelect<true>;
     about: AboutSelect<false> | AboutSelect<true>;
   };
   locale: null;
@@ -453,6 +455,22 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "main".
+ */
+export interface Main {
+  id: string;
+  seo: {
+    /**
+     * Page title. The front adds the Marta Sieczkowska prefix.
+     */
+    metaTitle: string;
+    metaDescription: string;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "about".
  */
 export interface About {
@@ -485,6 +503,21 @@ export interface About {
   email: string;
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "main_select".
+ */
+export interface MainSelect<T extends boolean = true> {
+  seo?:
+    | T
+    | {
+        metaTitle?: T;
+        metaDescription?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
