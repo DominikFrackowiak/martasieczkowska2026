@@ -4,8 +4,8 @@ import CloseIcon from '../../atoms/icons/close-icon.astro'
 ---
 
 <div class='hidden justify-center items-center fixed inset-0 h-full min-h-screen w-full bg-white/80 z-20 cursor-pointer' id='full-size-image-wrapper'>
-	<IconClickable as='button' url='' ariaLabel='Close image preview' type='button' className='absolute top-16 right-8 text-black/80 cursor-pointer'><CloseIcon className='h-8!'/></IconClickable>
-	<img alt='' id='full-size-image' class='cursor-pointer max-h-screen max-w-full object-contain py-10' />
+	<IconClickable as='button' url='' ariaLabel='Close image preview' type='button' className='absolute top-32 lg:top-16 right-0 lg:right-8 text-black/80 cursor-pointer'><CloseIcon className='h-8!'/></IconClickable>
+	<img alt='' id='full-size-image' class='cursor-pointer max-h-screen max-w-full object-contain px-4 py-10' />
 </div>
 
 <script>
