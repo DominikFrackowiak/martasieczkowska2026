@@ -5,3 +5,4 @@ node_modules
 dist
 .next
 storybook-static
+apps/storybook/debug-storybook.log
