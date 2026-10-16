@@ -7,6 +7,7 @@ interface Props {
 }
 
 const { className } = Astro.props
+const isAbout = /^\/about\/?$/.test(Astro.url.pathname)
 ---
 
 <header
@@ -32,7 +33,7 @@ const { className } = Astro.props
 			<a class='nav-element' href='/?category=illustration' data-nav-category='illustration'
 				>illustration</a
 			>
-			<a class='nav-element' href='/about'>about</a>
+			<a class={cn('nav-element', isAbout && 'active')} href='/about' aria-current={isAbout ? 'page' : undefined}>about</a>
 		</nav>
 	</div>
 
@@ -48,7 +49,7 @@ const { className } = Astro.props
 		<a class='nav-element' href='/?category=illustration' data-nav-category='illustration'
 			>illustration</a
 		>
-		<a class='nav-element mb-3' href='/about'>about</a>
+		<a class={cn('nav-element mb-3', isAbout && 'active')} href='/about' aria-current={isAbout ? 'page' : undefined}>about</a>
 	</nav>
 
 	<button
