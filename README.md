@@ -11,12 +11,12 @@ galleries and a focus on typography and imagery.
 | Area | Technologies |
 | --- | --- |
 | Frontend | Astro, TypeScript, Tailwind CSS |
-| CMS | Payload CMS, Next.js, React, Lexical |
+| CMS | Payload CMS (Next.js, React) |
 | Database | MongoDB |
 | Media | Cloudinary |
 | Components | Storybook with Vite |
 | Validation | Zod |
-| Testing | Vitest, Playwright, Testing Library |
+| Testing | Vitest |
 | Workspace | pnpm |
 | Deployment | Vercel |
 
