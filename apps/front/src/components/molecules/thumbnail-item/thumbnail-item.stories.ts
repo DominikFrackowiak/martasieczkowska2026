@@ -1,12 +1,5 @@
 import ThumbnailItem from './thumbnail-item.astro'
-import goat from '../../atoms/content-image/goat.jpg'
-
-const image = {
-	alt: 'Goat placeholder image',
-	src: goat,
-	intrinsicWidth: goat.width,
-	intrinsicHeight: goat.height,
-}
+import { storyImage as image } from '../../../data/story-image'
 
 const meta = {
 	title: 'Molecules/ThumbnailItem',

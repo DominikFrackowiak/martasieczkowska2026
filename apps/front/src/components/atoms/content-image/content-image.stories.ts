@@ -1,5 +1,5 @@
 import ContentImage from './content-image.astro'
-import placeholder from './goat.jpg'
+import { storyImage } from '../../../data/story-image'
 
 const meta = {
 	title: 'Atoms/ContentImage',
@@ -20,10 +20,7 @@ const meta = {
 		},
 	},
 	args: {
-		alt: 'Abstract placeholder image',
-		src: placeholder,
-		intrinsicWidth: placeholder.width,
-		intrinsicHeight: placeholder.height,
+		...storyImage,
 		variant: 'full',
 		className: '',
 	},

@@ -1,12 +1,5 @@
 import ProjectGallery from './project-gallery.astro'
-import placeholder from '../../atoms/content-image/placeholder.png'
-
-const image = {
-	alt: 'Abstract placeholder image',
-	src: placeholder,
-	intrinsicWidth: placeholder.width,
-	intrinsicHeight: placeholder.height,
-}
+import { storyImage as image } from '../../../data/story-image'
 
 const meta = {
 	title: 'Organisms/ProjectGallery',

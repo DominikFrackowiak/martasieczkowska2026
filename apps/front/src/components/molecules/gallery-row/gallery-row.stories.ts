@@ -1,12 +1,5 @@
 import GalleryRow from './gallery-row.astro'
-import placeholder from '../../atoms/content-image/goat.jpg'
-
-const image = {
-	alt: 'Abstract placeholder image',
-	src: placeholder,
-	intrinsicWidth: placeholder.width,
-	intrinsicHeight: placeholder.height,
-}
+import { storyImage as image } from '../../../data/story-image'
 
 const meta = {
 	title: 'Molecules/GalleryRow',

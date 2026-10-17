@@ -1,5 +1,4 @@
-﻿import goat from '../components/atoms/content-image/goat.jpg'
-import placeholder from '../components/atoms/content-image/placeholder.png'
+import { storyImage } from './story-image'
 import type { ContentImageProps } from '../components/atoms/content-image/content-image.astro'
 import type { GalleryRowProps } from '../components/molecules/gallery-row/gallery-row.astro'
 
@@ -24,20 +23,6 @@ export type ProjectThumbnailItem = Pick<ProjectMock, 'slug' | 'titleLines'> & {
 	image: ContentImageProps
 }
 
-const goatImage = {
-	alt: 'Goat placeholder image',
-	src: goat,
-	intrinsicWidth: goat.width,
-	intrinsicHeight: goat.height,
-} satisfies ContentImageProps
-
-const placeholderImage = {
-	alt: 'Abstract placeholder image',
-	src: placeholder,
-	intrinsicWidth: placeholder.width,
-	intrinsicHeight: placeholder.height,
-} satisfies ContentImageProps
-
 export const projectsMock = [
 	{
 		slug: 'ganna-glass',
@@ -45,7 +30,7 @@ export const projectsMock = [
 		titleLines: ['Ganna Glass.', 'logo design'],
 		category: 'graphic-design',
 		thumbnail: {
-			...goatImage,
+			...storyImage,
 			alt: 'Ganna Glass logo design thumbnail',
 		},
 		intro: {
@@ -58,13 +43,13 @@ export const projectsMock = [
 			{
 				justify: 'between',
 				imageItems: [
-					{ ...placeholderImage, variant: '1/2' },
-					{ ...placeholderImage, variant: '1/3' },
+					{ ...storyImage, variant: '1/2' },
+					{ ...storyImage, variant: '1/3' },
 				],
 			},
 			{
 				justify: 'center',
-				imageItems: [{ ...placeholderImage, variant: '2/3' }],
+				imageItems: [{ ...storyImage, variant: '2/3' }],
 			},
 		],
 	},
@@ -74,7 +59,7 @@ export const projectsMock = [
 		titleLines: ['Editorial', 'design'],
 		category: 'graphic-design',
 		thumbnail: {
-			...goatImage,
+			...storyImage,
 			alt: 'Editorial design project thumbnail',
 		},
 		intro: {
@@ -86,11 +71,11 @@ export const projectsMock = [
 		galleryRows: [
 			{
 				justify: 'start',
-				imageItems: [{ ...placeholderImage, variant: '1/2' }],
+				imageItems: [{ ...storyImage, variant: '1/2' }],
 			},
 			{
 				justify: 'end',
-				imageItems: [{ ...placeholderImage, variant: '1/2' }],
+				imageItems: [{ ...storyImage, variant: '1/2' }],
 			},
 		],
 	},
@@ -100,7 +85,7 @@ export const projectsMock = [
 		titleLines: ['Educational', 'illustration'],
 		category: 'illustration',
 		thumbnail: {
-			...goatImage,
+			...storyImage,
 			alt: 'Educational illustration project thumbnail',
 		},
 		intro: {
@@ -112,9 +97,9 @@ export const projectsMock = [
 		galleryRows: [
 			{
 				imageItems: [
-					{ ...placeholderImage, variant: 'grow' },
-					{ ...placeholderImage, variant: 'grow' },
-					{ ...placeholderImage, variant: 'grow' },
+					{ ...storyImage, variant: 'grow' },
+					{ ...storyImage, variant: 'grow' },
+					{ ...storyImage, variant: 'grow' },
 				],
 			},
 		],
@@ -125,7 +110,7 @@ export const projectsMock = [
 		titleLines: ['Illustration', 'for children'],
 		category: 'illustration',
 		thumbnail: {
-			...goatImage,
+			...storyImage,
 			alt: 'Illustration for children project thumbnail',
 		},
 		intro: {
@@ -139,9 +124,9 @@ export const projectsMock = [
 				justify: 'between',
 				align: 'end',
 				imageItems: [
-					{ ...placeholderImage, variant: '1/4' },
-					{ ...placeholderImage, variant: '1/4' },
-					{ ...placeholderImage, variant: '1/4' },
+					{ ...storyImage, variant: '1/4' },
+					{ ...storyImage, variant: '1/4' },
+					{ ...storyImage, variant: '1/4' },
 				],
 			},
 		],
@@ -152,7 +137,7 @@ export const projectsMock = [
 		titleLines: ['Press', 'illustration'],
 		category: 'illustration',
 		thumbnail: {
-			...goatImage,
+			...storyImage,
 			alt: 'Press illustration project thumbnail',
 		},
 		intro: {
@@ -165,8 +150,8 @@ export const projectsMock = [
 			{
 				justify: 'between',
 				imageItems: [
-					{ ...placeholderImage, variant: '2/5' },
-					{ ...placeholderImage, variant: '2/5' },
+					{ ...storyImage, variant: '2/5' },
+					{ ...storyImage, variant: '2/5' },
 				],
 			},
 		],
@@ -177,7 +162,7 @@ export const projectsMock = [
 		titleLines: ['Branding'],
 		category: 'graphic-design',
 		thumbnail: {
-			...goatImage,
+			...storyImage,
 			alt: 'Branding project thumbnail',
 		},
 		intro: {
@@ -189,7 +174,7 @@ export const projectsMock = [
 		galleryRows: [
 			{
 				justify: 'center',
-				imageItems: [{ ...placeholderImage, variant: '2/3' }],
+				imageItems: [{ ...storyImage, variant: '2/3' }],
 			},
 		],
 	},
