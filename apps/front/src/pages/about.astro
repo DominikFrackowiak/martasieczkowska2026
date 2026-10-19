@@ -10,7 +10,7 @@ const portrait = getPortrait(about.portrait)
 const textLines = about.experience.map(({ text, suffix }) => suffix ? [text, suffix] : text)
 ---
 
-<Layout isWithArrows={false} metatitle={about.seo.metaTitle} metadescription={about.seo.metaDescription}>
+<Layout isWithArrows={false} metatitle={about.seo.metaTitle} metadescription={about.seo.metaDescription} socialImage={about.seo.socialImage ?? about.portrait.image}>
  <Text className='w-full max-w-127.5'>{about.introduction}</Text>
  <Experience textLines={textLines}/>
  <div>

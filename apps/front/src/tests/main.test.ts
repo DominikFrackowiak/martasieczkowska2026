@@ -9,7 +9,7 @@ describe('Main CMS content', () => {
     const fetchMock = vi.fn().mockResolvedValue(Response.json(content))
     vi.stubGlobal('fetch', fetchMock)
     expect(await fetchMain('https://cms.example.com/cms/')).toEqual(content)
-    expect((fetchMock.mock.calls[0][0] as URL).href).toBe('https://cms.example.com/cms/api/globals/main?depth=0')
+    expect((fetchMock.mock.calls[0][0] as URL).href).toBe('https://cms.example.com/cms/api/globals/main?depth=1')
   })
 
   it('rejects missing configuration, invalid protocols and HTTP errors', async () => {

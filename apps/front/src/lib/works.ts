@@ -1,14 +1,11 @@
 import { z } from 'zod'
+import { mediaSchema, seoSchema } from './seo'
 import type { Work } from '../../../cms/src/payload-types'
 import type { ContentImageProps } from '../components/atoms/content-image/content-image.astro'
 import type { GalleryRowProps } from '../components/molecules/gallery-row/gallery-row.astro'
 
 const text = z.string().trim().min(1)
 const lines = z.array(z.object({ text })).min(1)
-const mediaSchema = z.object({
-  url: z.url().refine(value => new URL(value).protocol === 'https:', 'Expected an HTTPS image URL'),
-  width: z.number().int().positive(), height: z.number().int().positive(), alt: text,
-})
 
 // Validate only the fields used by the front; Payload's generated types also
 // include IDs, timestamps and nullable/unpopulated upload metadata.
@@ -17,7 +14,7 @@ export const workSchema = z.object({
   slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
   category: z.enum(['graphic-design', 'illustration'] satisfies Work['category'][]),
   thumbnail: z.object({ image: mediaSchema, titleLines: lines }),
-  seo: z.object({ metaTitle: text, metaDescription: text }),
+  seo: seoSchema,
   description: z.object({ titleLines: lines, paragraphs: lines }),
   galleryRows: z.array(z.object({
     align: z.enum(['start', 'center', 'end', 'stretch']).nullish(),
@@ -105,6 +102,7 @@ function getImage(image: z.infer<typeof mediaSchema>): ContentImageProps {
 export function getProject(work: WorkContent) {
   return {
     slug: work.slug, seo: work.seo,
+    socialImage: work.seo.socialImage ?? work.thumbnail.image,
     intro: {
       headingLines: work.description.titleLines.map(line => line.text),
       descriptionParagraphs: work.description.paragraphs.map(paragraph => paragraph.text),

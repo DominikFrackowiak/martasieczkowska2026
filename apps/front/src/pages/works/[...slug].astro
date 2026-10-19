@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 const { project } = Astro.props as { project: Project }
 ---
 
-<Layout metatitle={project.seo.metaTitle} metadescription={project.seo.metaDescription}>
+<Layout metatitle={project.seo.metaTitle} metadescription={project.seo.metaDescription} socialImage={project.socialImage}>
 	<div class='flex flex-col xl:flex-row justify-between gap-4'>
 		<ProjectIntro
 			className='order-0 xl:order-1 w-full xl:max-w-62.5'

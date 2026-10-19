@@ -1,13 +1,11 @@
 import { z } from 'zod'
+import { seoSchema } from './seo'
 
 const httpsURL = z.string().url().refine((value) => new URL(value).protocol === 'https:', 'Expected an HTTPS image URL')
 const dimensions = z.number().int().positive()
 
 export const aboutSchema = z.object({
-  seo: z.object({
-    metaTitle: z.string().trim().min(1),
-    metaDescription: z.string().trim().min(1),
-  }),
+  seo: seoSchema,
   introduction: z.string().trim().min(1),
   experience: z.array(z.object({
     text: z.string().trim().min(1),

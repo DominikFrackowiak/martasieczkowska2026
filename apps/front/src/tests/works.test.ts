@@ -38,6 +38,7 @@ describe('Works CMS content', () => {
     const project = getProject(parsed)
     expect(project.slug).toBe('ganna-glass-logo-design')
     expect(project.seo).toEqual(work.seo)
+    expect(project.socialImage).toEqual(image)
     expect(project.intro).toEqual({ headingLines: ['Ganna Glass.', 'logo design'], descriptionParagraphs: ['First paragraph', 'Second paragraph'] })
     expect(project.galleryRows.map(row => [row.align, row.justify, row.imageItems.map(item => item.variant)])).toEqual([
       ['end', 'between', ['1/2', '1/3']], ['start', 'center', ['2/3']], ['start', 'start', ['grow', 'grow', 'grow']],
@@ -45,6 +46,12 @@ describe('Works CMS content', () => {
     expect(project.galleryRows[0].imageItems[0]).toEqual({ src: image.url, intrinsicWidth: 900, intrinsicHeight: 600, alt: image.alt, caption: 'Credit', variant: '1/2' })
     expect(project.galleryRows[0].imageItems[1].caption).toBeUndefined()
     expect(getThumbnails([parsed])[0]).toEqual({ slug: 'ganna-glass-logo-design', category: 'graphic-design', image: { src: image.url, intrinsicWidth: 900, intrinsicHeight: 600, alt: image.alt }, titleLines: ['Ganna Glass.', 'logo design'] })
+  })
+
+  it('uses the selected social image instead of the project thumbnail', () => {
+    const socialImage = { ...image, url: 'https://example.com/social.jpg', alt: 'Sharing artwork' }
+    const parsed = workSchema.parse({ ...work, seo: { ...work.seo, socialImage } })
+    expect(getProject(parsed).socialImage).toEqual(socialImage)
   })
 
   it('rejects invalid slugs, categories, empty content and unresolved Media', () => {

@@ -28,6 +28,20 @@ galleries and a focus on typography and imagery.
 - CMS-managed projects, homepage, about page, and SEO metadata.
 - Cloudinary media storage and delivery.
 
+## Social sharing
+
+Every page includes Open Graph, Twitter Card and canonical metadata for
+`https://martasieczkowska.com`. Titles and descriptions come from the existing
+SEO fields in Payload. The optional **Social sharing image** field selects an
+existing Media asset; no separate upload is needed. Without an override, projects
+use their thumbnail, About uses its portrait, and the homepage uses the first
+project thumbnail in CMS order. If there are no projects, select an image in
+Main to give the homepage a sharing image.
+
+Cloudinary images are shared as JPEG variants without cropping. CMS edits take
+effect on the static website after the frontend rebuilds. Deploy both the CMS
+and frontend to make the new field available to editors.
+
 ## Project structure
 
 ```text

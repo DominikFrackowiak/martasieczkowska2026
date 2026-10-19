@@ -8,16 +8,23 @@ import BackwardForwardNavigation from '../components/organisms/backward-forward-
 import IconClickable from '../components/atoms/icon-clickable/icon-clickable.astro'
 import ArrowUp from '../components/atoms/icons/arrow-up.astro'
 import { getWorks, getThumbnails } from '../lib/works'
+import { getCanonicalURL, getSocialImage, type SocialImage } from '../lib/seo'
 
 interface Props {
 	metatitle: string
 	metadescription: string
+	socialImage?: SocialImage | null
 	isWithBackwordForwardNavigation?: boolean
 	isWithArrows?: boolean
 }
 
-const { isWithBackwordForwardNavigation=true, isWithArrows=true, metatitle, metadescription } = Astro.props
-const thumbnailItemsList = getThumbnails(await getWorks(import.meta.env.CMS_URL))
+const { isWithBackwordForwardNavigation=true, isWithArrows=true, metatitle, metadescription, socialImage } = Astro.props
+const works = await getWorks(import.meta.env.CMS_URL)
+const thumbnailItemsList = getThumbnails(works)
+const title = `Marta Sieczkowska | ${metatitle}`
+const sourceImage = socialImage ?? works[0]?.thumbnail.image
+const sharingImage = sourceImage ? getSocialImage(sourceImage) : undefined
+const canonicalURL = getCanonicalURL(Astro.url.pathname, Astro.site ?? Astro.url)
 const currentSlug = Astro.url.pathname.match(/^\/works\/([^/]+)\/?$/)?.[1]
 const currentIndex = thumbnailItemsList.findIndex(item => item.slug === currentSlug)
 const previousSlug = currentIndex > 0 ? thumbnailItemsList[currentIndex - 1].slug : undefined
@@ -35,7 +42,24 @@ const nextSlug = currentIndex >= 0 ? thumbnailItemsList[currentIndex + 1]?.slug 
 <link rel="manifest" href="/site.webmanifest">
 		<meta name='generator' content={Astro.generator} />
 		<meta name='description' content={metadescription} />
-		<title>Marta Sieczkowska | {metatitle}</title>
+		<title>{title}</title>
+		<link rel='canonical' href={canonicalURL} />
+		<meta property='og:title' content={title} />
+		<meta property='og:description' content={metadescription} />
+		<meta property='og:type' content='website' />
+		<meta property='og:site_name' content='Marta Sieczkowska' />
+		<meta property='og:url' content={canonicalURL} />
+		<meta name='twitter:card' content={sharingImage ? 'summary_large_image' : 'summary'} />
+		<meta name='twitter:title' content={title} />
+		<meta name='twitter:description' content={metadescription} />
+		{sharingImage && <>
+			<meta property='og:image' content={sharingImage.url} />
+			<meta property='og:image:width' content={String(sharingImage.width)} />
+			<meta property='og:image:height' content={String(sharingImage.height)} />
+			<meta property='og:image:alt' content={sharingImage.alt} />
+			<meta name='twitter:image' content={sharingImage.url} />
+			<meta name='twitter:image:alt' content={sharingImage.alt} />
+		</>}
 		<ClientRouter />
 	</head>
 	<body class='flex flex-col spacing site-container'>
