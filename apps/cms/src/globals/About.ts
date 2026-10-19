@@ -1,5 +1,6 @@
 import type { GlobalConfig } from 'payload'
 import { triggerFrontendDeploy } from '../hooks/triggerFrontendDeploy'
+import { socialImage } from '../fields/socialImage'
 
 const authenticated = ({ req }: { req: { user?: unknown } }) => Boolean(req.user)
 
@@ -15,6 +16,7 @@ export const About: GlobalConfig = {
           admin: { description: 'Page title. The front adds the Marta Sieczkowska prefix.' } },
         { name: 'metaDescription', type: 'textarea', required: true,
           defaultValue: 'Meet Marta Sieczkowska, a graphic designer and illustrator from Poland. Discover her experience and get in touch.' },
+        socialImage('the About portrait is used'),
       ],
     },
     {

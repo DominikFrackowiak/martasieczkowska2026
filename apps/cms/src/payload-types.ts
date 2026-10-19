@@ -201,6 +201,10 @@ export interface Work {
      */
     metaTitle: string;
     metaDescription: string;
+    /**
+     * Optional. Select an existing image from Media. If empty, the project thumbnail is used. The page title and description above are also used when sharing links.
+     */
+    socialImage?: (string | null) | Media;
   };
   description: {
     /**
@@ -378,6 +382,7 @@ export interface WorksSelect<T extends boolean = true> {
     | {
         metaTitle?: T;
         metaDescription?: T;
+        socialImage?: T;
       };
   description?:
     | T
@@ -465,6 +470,10 @@ export interface Main {
      */
     metaTitle: string;
     metaDescription: string;
+    /**
+     * Optional. Select an existing image from Media. If empty, the first project thumbnail is used. The page title and description above are also used when sharing links.
+     */
+    socialImage?: (string | null) | Media;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -481,6 +490,10 @@ export interface About {
      */
     metaTitle: string;
     metaDescription: string;
+    /**
+     * Optional. Select an existing image from Media. If empty, the About portrait is used. The page title and description above are also used when sharing links.
+     */
+    socialImage?: (string | null) | Media;
   };
   introduction: string;
   /**
@@ -514,6 +527,7 @@ export interface MainSelect<T extends boolean = true> {
     | {
         metaTitle?: T;
         metaDescription?: T;
+        socialImage?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -529,6 +543,7 @@ export interface AboutSelect<T extends boolean = true> {
     | {
         metaTitle?: T;
         metaDescription?: T;
+        socialImage?: T;
       };
   introduction?: T;
   experience?:

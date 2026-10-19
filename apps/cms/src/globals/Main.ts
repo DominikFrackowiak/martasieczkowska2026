@@ -1,5 +1,6 @@
 import type { GlobalConfig } from 'payload'
 import { triggerFrontendDeploy } from '../hooks/triggerFrontendDeploy'
+import { socialImage } from '../fields/socialImage'
 
 export const Main: GlobalConfig = {
   slug: 'main',
@@ -17,6 +18,7 @@ export const Main: GlobalConfig = {
           admin: { description: 'Page title. The front adds the Marta Sieczkowska prefix.' } },
         { name: 'metaDescription', type: 'textarea', required: true,
           defaultValue: 'Explore the portfolio of Marta Sieczkowska, a Polish graphic designer and illustrator working across visual identities, typography, editorial design and illustration.' },
+        socialImage('the first project thumbnail is used'),
       ],
     },
   ],

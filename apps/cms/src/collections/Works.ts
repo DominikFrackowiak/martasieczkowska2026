@@ -1,5 +1,6 @@
 import type { Access, CollectionConfig } from 'payload'
 import { triggerFrontendDeploy } from '../hooks/triggerFrontendDeploy'
+import { socialImage } from '../fields/socialImage'
 
 const authenticated: Access = ({ req }) => Boolean(req.user)
 
@@ -80,6 +81,7 @@ export const Works: CollectionConfig = {
         { name: 'metaTitle', label: 'Page title', type: 'text', required: true,
           admin: { description: 'The front adds the Marta Sieczkowska prefix.' } },
         { name: 'metaDescription', label: 'Page description', type: 'textarea', required: true },
+        socialImage('the project thumbnail is used'),
       ],
     },
     {
