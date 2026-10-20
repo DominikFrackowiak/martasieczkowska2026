@@ -35,6 +35,15 @@ const nextSlug = currentIndex >= 0 ? thumbnailItemsList[currentIndex + 1]?.slug 
 <html lang='en'>
 	<head>
 		<meta charset='utf-8' />
+		<!-- Google tag (gtag.js) -->
+		<script is:inline async src='https://www.googletagmanager.com/gtag/js?id=G-DR2M3HYVCW'></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){window.dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-DR2M3HYVCW');
+		</script>
 		<meta name='viewport' content='width=device-width' />
 	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
